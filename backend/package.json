@@ -3,7 +3,9 @@
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
-    "jwtoken": "^0.0.0"
+    "jwtoken": "^0.0.0",
+    "pg": "^8.14.1",
+    "sequelize": "^6.37.7"
   },
   "name": "backend",
   "version": "1.0.0",
