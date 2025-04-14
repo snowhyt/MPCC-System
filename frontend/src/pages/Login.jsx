@@ -8,8 +8,10 @@ function Login() {
       <Navbar />
 
       {/* Login Form */}
-
-      <div className="flex items-center justify-center min-h-screen w-screen bg-defaultBG">
+      <div>
+        <img src="/images/Hero-section.png" className="w-full" />
+      </div>
+      <div className="flex items-center justify-center h-[500px] w-screen bg-defaultBG">
         <div className="flex flex-col w-full max-w-sm p-8 space-y-6 bg-white rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold text-center text-company">LOGIN</h2>
 
@@ -70,6 +72,9 @@ function Login() {
             </p>
           </div>
         </div>
+      </div>
+      <div className="bg-company p-20">
+        <p>footer</p>
       </div>
     </>
   );
