@@ -1,11 +1,15 @@
 import db from "../utils/db.js";
-import { Sequelize } from "sequelize";
+import { Sequelize, DataTypes } from "sequelize";
 
 
 
 const Employee = db.define('employee',{
-    id:{
-        primaryKey: true,
+        id:{
+            type: Sequalize.STRING,
+            autoIncrement: true,
+            allowNull: false,
+            primaryKey: true
+        },
         fname: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -13,6 +17,15 @@ const Employee = db.define('employee',{
         lname: {
             type: Sequelize.STRING,
             allowNull: false,
+        },
+        gender:{
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        birthdate:{
+            type: DataTypes.DATEONLY,
+            allowNull: false,
+
         },
         email: {
             type: Sequelize.STRING,
@@ -45,6 +58,6 @@ const Employee = db.define('employee',{
 
 
 
-});
+);
 
 export default Employee;
