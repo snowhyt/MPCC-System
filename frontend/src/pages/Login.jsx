@@ -11,7 +11,7 @@ function Login() {
       <div>
         <img src="/images/Hero-section.png" className="w-full" />
       </div>
-      <div className="flex items-center justify-center h-[500px] w-screen bg-defaultBG">
+      <div className="flex items-center justify-center h-[500px] w-full bg-defaultBG">
         <div className="flex flex-col w-full max-w-sm p-8 space-y-6 bg-white rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold text-center text-company">LOGIN</h2>
 
@@ -73,8 +73,20 @@ function Login() {
           </div>
         </div>
       </div>
-      <div className="bg-company p-20">
-        <p>footer</p>
+      <div className="bg-company">
+        <div className="flex flex-col items-center">
+          <img
+            src="/images/MPC-WHITETEXT.png"
+            alt="Logo"
+            className="w-100 h-30"
+          />
+          <div className="w-11/12 border-t border-gray-300 mt-4 mb-2"></div>
+        </div>
+
+        <p className="text-center text-sm text-white p-5">
+          Copyright <strong>Metropolitan Pest Control Corporation.</strong> All
+          Rights Reserved
+        </p>
       </div>
     </>
   );
