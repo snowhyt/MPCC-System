@@ -1,14 +1,9 @@
 
-
-import React from "react";
 import './App.css'
 import { Routes, Route} from 'react-router-dom';
-
-
-import Login from "./pages/Login.jsx";
-// import Signup from "./pages/Signup.jsx";
-// import Dashboard from "./pages/Dashboard.jsx";
-
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
 
 
 
@@ -19,22 +14,21 @@ function App() {
 
   return (
   
-
-    <div>
- 
+    <>
     <Routes>
+      <Route path="/login" element={Login}/>
+      <Route path="/signup" element={Signup}/>
+      <Route path="/dashboard" element={Dashboard}/>
       
-      <Route path="/login" element={<Login/>}/>
-  
+
     
     </Routes>
     
-    </div>
+    </>
   
      
   )
 }
 
 
-export default App;
-
+export default App

@@ -43,7 +43,7 @@ const Employee = db.define('employee',{
             type: Sequelize.STRING,
             allowNull: false,
         },
-        profilepicture:{
+        profilePic:{
             type: Sequelize.STRING,
             allowNull: false,
         }, 
@@ -51,6 +51,10 @@ const Employee = db.define('employee',{
             type: Sequelize.STRING,
             allowNull: false,
         },
+        address:{
+            type: Sequelize.STRING,
+            allowNull: false, 
+        }
 
     },
     
