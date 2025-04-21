@@ -5,7 +5,7 @@ import { Sequelize, DataTypes } from "sequelize";
 
 const Employee = db.define('employee',{
         id:{
-            type: Sequalize.STRING,
+            type: Sequelize.STRING,
             autoIncrement: true,
             allowNull: false,
             primaryKey: true
