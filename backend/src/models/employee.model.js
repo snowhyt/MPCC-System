@@ -1,25 +1,25 @@
 import db from "../utils/db.js";
-import { Sequelize, DataTypes } from "sequelize";
+import { Model, DataTypes } from "sequelize";
 
 
 
 const Employee = db.define('employee',{
         id:{
-            type: Sequelize.STRING,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             allowNull: false,
             primaryKey: true
         },
         fname: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         lname: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
-        gender:{
-            type: Sequelize.STRING,
+        sex:{
+            type: DataTypes.ENUM('male', 'female'),
             allowNull: false,
         },
         birthdate:{
@@ -28,40 +28,39 @@ const Employee = db.define('employee',{
 
         },
         email: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         emp_id:{
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         password:{
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         }, 
         role:{
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         profilePic:{
-            type: Sequelize.STRING,
-            allowNull: false,
+            type: DataTypes.STRING,
+            allowNull: true,
         }, 
         phone:{
-            type: Sequelize.STRING,
-            allowNull: false,
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         address:{
-            type: Sequelize.STRING,
-            allowNull: false, 
+            type: DataTypes.STRING,
+            allowNull: true, 
         }
-
     },
-    
-
-
-
-
-);
+    {
+        sequelize,
+        modelName: 'Employee',
+        tableName: 'employees',
+    });
 
 export default Employee;
