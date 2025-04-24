@@ -58,7 +58,7 @@ const Employee = db.define('employee',{
         }
     },
     {
-        sequelize,
+        sequelize: db,
         modelName: 'Employee',
         tableName: 'employees',
     });
