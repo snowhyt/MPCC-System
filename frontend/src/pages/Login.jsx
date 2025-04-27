@@ -9,10 +9,10 @@ function Login() {
 
       {/* Login Form */}
       <div>
-        <img src="/images/Hero-section.png" className="w-full" />
+        <img src="/images/Hero-section.png" className="w-full h-43" />
       </div>
       <div className="flex items-center justify-center h-[500px] w-full bg-defaultBG">
-        <div className="flex flex-col w-full max-w-sm p-8 space-y-6 bg-white rounded-lg shadow-lg">
+        <div className="flex flex-col w-100 h-103 p-8 space-y-6 bg-white rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold text-center text-company">LOGIN</h2>
 
           <form action="#" method="POST" className="flex flex-col space-y-4">
@@ -73,12 +73,12 @@ function Login() {
           </div>
         </div>
       </div>
-      <div className="bg-company">
-        <div className="flex flex-col items-center">
+      <div className="bg-company w-full">
+        <div className="flex flex-col items-center h-25">
           <img
             src="/images/MPC-WHITETEXT.png"
             alt="Logo"
-            className="w-100 h-30"
+            className="w-65 h-20"
           />
           <div className="w-11/12 border-t border-gray-300 mt-4 mb-2"></div>
         </div>
