@@ -14,7 +14,7 @@ function Signup() {
           />
         </div>
         <div className="flex items-center justify-center pt-10 pb-15 max-h-full w-full bg-defaultBG">
-          <div className="flex flex-col w-[57rem] h-[50rem] p-8 space-y-6 bg-white rounded-lg shadow-lg">
+          <div className="flex flex-col w-[57rem] h-[90rem] p-8 space-y-6 bg-white rounded-lg shadow-lg">
             <h2 className="text-center text-lg text-blue-500">
               Fill out the form carefully for registration
             </h2>
@@ -100,15 +100,13 @@ function Signup() {
                         <option>Male</option>
                         <option>Female</option>
                       </select>
-                      <select
+                      <input
+                        type="text"
                         id="position"
                         name="position"
-                        className=" text-gray-700 bg-white border border-black shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      >
-                        <option>Select an option</option>
-                        <option>Admin</option>
-                        <option>Technician</option>
-                      </select>
+                        className="border-black border-1 shadow-sm text-gray-700 p-1 w-35"
+                        placeholder="Position"
+                      />
                       <select
                         id="accesslevel"
                         name="accesslevel"
@@ -119,6 +117,54 @@ function Signup() {
                         <option>Option 2</option>
                         <option>Option 3</option>
                       </select>
+                    </div>
+                    <div className="pt-5">
+                      <label className="text-gray-700 text-md font-bold">
+                        Address
+                      </label>
+                      <label
+                        class="flex mb-2 text-sm font-medium text-gray-700 pt-2"
+                        for="city"
+                      >
+                        City/Municipality
+                      </label>
+                      <select
+                        id="city"
+                        class="w-full py-1 border border-black focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                        onchange="updateBarangays(this.value)"
+                      >
+                        <option value="">Select a city</option>
+                        <option value="manila">Manila</option>
+                        <option value="quezon">Quezon City</option>
+                        <option value="makati">Makati</option>
+                        <option value="pasig">Pasig</option>
+                      </select>
+                      <label
+                        class="flex mb-2 text-sm font-medium text-gray-700 pt-2"
+                        for="city"
+                      >
+                        Barangay
+                      </label>
+                      <input
+                        type="text"
+                        id="brgy"
+                        name="brgy"
+                        className="border-black border-1 shadow-sm text-gray-700 p-1 w-35 w-full"
+                        placeholder="Position"
+                      />
+                      <label
+                        class="flex mb-2 text-sm font-medium text-gray-700 pt-2"
+                        for="city"
+                      >
+                        Street
+                      </label>
+                      <input
+                        type="text"
+                        id="street"
+                        name="street"
+                        className="border-black border-1 shadow-sm text-gray-700 p-1 w-35 w-full"
+                        placeholder="Position"
+                      />
                     </div>
                   </div>
                 </div>
