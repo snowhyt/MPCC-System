@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   frontend:
@@ -14,7 +14,7 @@ services:
       - backend
     environment:
       VITE_API_URL: http://localhost:5001
- 
+
   backend:
     build:
       context: ./backend
@@ -30,11 +30,9 @@ services:
     environment:
       DB_HOST: ${PG_HOST}
       DB_PORT: ${PG_PORT}
-      DB_USER: ${PG_USER} 
+      DB_USER: ${PG_USER}
       DB_PASS: ${PG_PASS}
       DB_NAME: ${PG_DB}
-
-      
 
   database:
     image: postgres:15

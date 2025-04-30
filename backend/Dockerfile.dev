@@ -8,6 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install backend dependencies
+ENV NODE_ENV=development
 RUN npm install
 
 # Copy all source code to container
