@@ -14,7 +14,7 @@ function Signup() {
           />
         </div>
         <div className="flex items-center justify-center pt-10 pb-15 max-h-full w-full bg-defaultBG">
-          <div className="flex flex-col w-[57rem] h-[90rem] p-8 space-y-6 bg-white rounded-lg shadow-lg">
+          <div className="flex flex-col w-[57rem] h-[72rem] p-8 space-y-6 bg-white rounded-lg shadow-lg">
             <h2 className="text-center text-lg text-blue-500">
               Fill out the form carefully for registration
             </h2>
@@ -139,32 +139,61 @@ function Signup() {
                         <option value="makati">Makati</option>
                         <option value="pasig">Pasig</option>
                       </select>
-                      <label
-                        class="flex mb-2 text-sm font-medium text-gray-700 pt-2"
-                        for="city"
-                      >
+                      <label class="flex mb-2 text-sm font-medium text-gray-700 pt-2">
                         Barangay
                       </label>
                       <input
                         type="text"
                         id="brgy"
                         name="brgy"
-                        className="border-black border-1 shadow-sm text-gray-700 p-1 w-35 w-full"
-                        placeholder="Position"
+                        className="border-black border-1 shadow-sm text-gray-700 p-1  w-full"
+                        placeholder="Brgy"
                       />
-                      <label
-                        class="flex mb-2 text-sm font-medium text-gray-700 pt-2"
-                        for="city"
-                      >
+                      <label class="flex mb-2 text-sm font-medium text-gray-700 pt-2">
                         Street
                       </label>
                       <input
                         type="text"
                         id="street"
                         name="street"
-                        className="border-black border-1 shadow-sm text-gray-700 p-1 w-35 w-full"
-                        placeholder="Position"
+                        className="border-black border-1 shadow-sm text-gray-700 p-1  w-full"
+                        placeholder="Street"
                       />
+                    </div>
+                    <div className="flex justify-between pt-5">
+                      <label className="text-gray-700 text-md font-bold">
+                        Email
+                      </label>
+                      <label className="text-gray-700 text-md font-bold pr-[17rem]">
+                        Phone Number
+                      </label>
+                    </div>
+                    <div className="flex justify-between pt-3">
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className="border-black border-1 shadow-sm text-gray-700 p-1 w-[25rem]"
+                        placeholder="Enter Email Address"
+                      />
+                      <input
+                        type="text"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        className="border-black border-1 shadow-sm text-gray-700 p-1 w-[25rem]"
+                        placeholder="Enter Phone Number"
+                      />
+                    </div>
+                    <div className="pt-10">
+                      <div className="w-full border-t border-blue-500"></div>
+                    </div>
+                    <div className="flex justify-center pt-10">
+                      <button
+                        type="submit"
+                        className="w-[15rem] py-3 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-lg"
+                      >
+                        Submit
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -172,6 +201,21 @@ function Signup() {
             </form>
           </div>
         </div>
+      </div>
+      <div className="bg-company w-full">
+        <div className="flex flex-col items-center h-25">
+          <img
+            src="/images/MPC-WHITETEXT.png"
+            alt="Logo"
+            className="w-65 h-20"
+          />
+          <div className="w-11/12 border-t border-gray-300 mt-4 mb-2"></div>
+        </div>
+
+        <p className="text-center text-sm text-white p-5">
+          Copyright <strong>Metropolitan Pest Control Corporation.</strong> All
+          Rights Reserved
+        </p>
       </div>
     </>
   );
