@@ -18,22 +18,25 @@ export const getEmployee = async(req,res,next) =>{
 };
 //get all the employee by id
 export const getEmployeebyId = async(req,res,next) =>{
-    const employeeId = req.params.emp_Id;
-    
+    const employeeId = req.params.empId;
+    console.log(`Fetching employee with ID: ${employeeId}`);
     try {
-    const employee = Employee.findByPk(employeeId);
+    const employee = await Employee.findByPk(employeeId);
+    console.log('Employee found by findByPk:', employee);
     if(!employee){
-        return res.status(404),json({message: 'User is not found'});
+        return res.status(404).json({message: 'User is not found'});
     }
 
     res.status(200).json({employee: employee});
     } catch (error) {
         console.log(error);
-        res.status(500),json({error: 'Internal server error'});
+        res.status(500).json({error: 'Internal server error'});
         
     }
 
-    
+   
+   
+
 };
 
 
@@ -81,6 +84,7 @@ export const updateEmployee = async(req,res,next)=>{
             emp_id: emp_id,
             password: password,
             role: role, 
+            position: position,
             profilePic: profilePic,
             phone: phone,
             address: address

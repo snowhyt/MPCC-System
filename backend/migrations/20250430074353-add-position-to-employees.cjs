@@ -24,6 +24,7 @@ module.exports = {
         defaultValue: 'employee',
       }
     );
+    
   },
 
   async down (queryInterface, Sequelize) {

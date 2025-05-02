@@ -1,5 +1,6 @@
 import db from "../utils/db.js";
 import { Model, DataTypes } from "sequelize";
+import nanoid from "nanoid";
 
 
 
@@ -30,11 +31,12 @@ const Employee = db.define('employee',{
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
+        
         },
         emp_id:{
             type: DataTypes.STRING,
             allowNull: false,
+            defaultValue: () => nanoid(),
         },
         password:{
             type: DataTypes.STRING,
