@@ -42,7 +42,7 @@ export const getEmployeebyId = async(req,res,next) =>{
 
 //create employee
 export const createEmployee = async(req,res,next)=>{
-    const {fname,lname,sex,birthdate,email,emp_id,password,role,position,profilePic,phone, address} = req.body;
+    const {fname,lname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
 try {
     const result = await Employee.create({
         fname: fname,
@@ -50,7 +50,7 @@ try {
         sex: sex,
         birthdate: birthdate,
         email: email,
-        emp_id: emp_id,
+        
         password: password,
         role: role,
         position: position, 
@@ -72,7 +72,7 @@ try {
 
 //update employee
 export const updateEmployee = async(req,res,next)=>{
-    const {fname,lname,sex,birthdate,email,emp_id,password,role,position,profilePic,phone, address} = req.body;
+    const {fname,lname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
     const employeeId = req.params.emp_id;
     try {
         const result = await Employee.update({
@@ -81,7 +81,6 @@ export const updateEmployee = async(req,res,next)=>{
             sex: sex,
             birthdate: birthdate,
             email: email,
-            emp_id: emp_id,
             password: password,
             role: role, 
             position: position,

@@ -41,7 +41,7 @@ const Employee = db.define('employee',{
             allowNull: false,
             unique: true,
             //may unique na ito na sa migrations
-            default: () => `EMP-${nanoid()}`
+            defaultValue: () => `EMP-${nanoid()}`
         },
         password:{
             type: DataTypes.STRING,
