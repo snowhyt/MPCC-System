@@ -1,8 +1,5 @@
 import Employee from "../models/employee.model.js";
-import { customAlphabet } from "nanoid";
 
-//nanoid
-const nanoid = customAlphabet('1234567890',6);
 
 
 //CRUD Controllers for employee 
@@ -20,12 +17,13 @@ export const getEmployee = async(req,res,next) =>{
         
     }
 };
-//get all the employee by id
+//get the employee by id
 export const getEmployeebyId = async(req,res,next) =>{
-    const employeeId = req.params.empId;
-    console.log(`Fetching employee with ID: ${employeeId}`);
+    const empIdFromRequest = req.params.empId;
+    console.log(`Fetching employee with ID: ${empIdFromRequest}`);
     try {
-    const employee = await Employee.findByPk(employeeId);
+    const employee = await Employee.findOne({where:{emp_id: empIdFromRequest}});
+    console.log(empIdFromRequest);
     console.log('Employee found by findByPk:', employee);
     if(!employee){
         return res.status(404).json({message: 'User is not found'});
@@ -46,8 +44,8 @@ export const getEmployeebyId = async(req,res,next) =>{
 
 //create employee
 export const createEmployee = async(req,res,next)=>{
-    const {fname,lname,sex,birthdate,email,emp_id,password,role,position,profilePic,phone, address} = req.body;
-    const emp_id_generator = `EMP-${nanoid()}`
+    const {fname,lname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
+    
 
     try {
     const result = await Employee.create({
@@ -56,7 +54,7 @@ export const createEmployee = async(req,res,next)=>{
         sex: sex,
         birthdate: birthdate,
         email: email,
-        emp_id: emp_id_generator,
+       
         password: password,
         role: role,
         position: position, 
@@ -79,33 +77,50 @@ export const createEmployee = async(req,res,next)=>{
 //update employee
 export const updateEmployee = async(req,res,next)=>{
     const {fname,lname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
-    const employeeId = req.params.empId;
+    const empIdFromRequest = req.params.empId;
     try {
-        const result = await Employee.update({
-            fname: fname,
-            lname: lname,
-            sex: sex,
-            birthdate: birthdate,
-            email: email,
-            password: password,
-            role: role, 
-            position: position,
-            profilePic: profilePic,
-            phone: phone,
-            address: address
-        },{where:{id:employeeId}});
-        res.status(200).json({message: 'Employee updated successfully', employee:result});
+     const [numberofAffectedRows] = await Employee.update({
+        fname,
+        lname,
+        sex,
+        birthdate,
+        email,
+        password,
+        role,
+        position,
+        profilePic,
+        phone,
+        address
+     },{
+        where:{emp_id:empIdFromRequest},
+        returning: true
+     });
+     if(numberofAffectedRows > 0){
+       const updatedEmployee = await Employee.findOne({where:{emp_id:empIdFromRequest}});
+       res.status(200).json({message: 'Employee updated successfully', employee:updatedEmployee});
+     }else{
+        res.status(404).json({message: 'Employee not found'});
+        
+     }
     } catch (error) {
         console.log(error);
         res.status(500).json({error:'Internal server error'});
+        console.error("Error updating employee:", error);
+
+        if (next){
+            error.statusCode = error.statusCode || 500;
+            return next(error);
+        }
+
+        res.status(500).json({error: 'Internal serer error while updating employee'})
     }
 };
 
 //delete employee
 export const deleteEmployee = async(req,res,next)=>{
-    const employeeId = req.params.empId;
+    const empIdFromRequest = req.params.empId;
     try {
-        const result = await Employee.destroy({where:{id:employeeId}});
+        const result = await Employee.destroy({where:{emp_id:empIdFromRequest}});
         res.status(200).json({message: 'Employee deleted successfully', employee:result});
     } catch (error) {
         console.log(error);
