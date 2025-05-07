@@ -36,6 +36,10 @@ const Employee = db.define('employee',{
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
+            validate:{
+                isEmail: true,
+            }
         
         },
         emp_id:{

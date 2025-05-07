@@ -44,7 +44,7 @@ export const getEmployeebyId = async(req,res,next) =>{
 
 //create employee
 export const createEmployee = async(req,res,next)=>{
-    const {fname,lname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
+const {fname,lname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;    
     
 
     try {
@@ -54,7 +54,6 @@ export const createEmployee = async(req,res,next)=>{
         sex: sex,
         birthdate: birthdate,
         email: email,
-       
         password: password,
         role: role,
         position: position, 
