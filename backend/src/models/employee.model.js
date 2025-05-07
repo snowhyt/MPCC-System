@@ -1,5 +1,11 @@
 import db from "../utils/db.js";
 import { Model, DataTypes } from "sequelize";
+import {customAlphabet} from 'nanoid';
+
+
+const nanoid = customAlphabet('0123456789',6)
+
+
 
 
 
@@ -31,10 +37,17 @@ const Employee = db.define('employee',{
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
+            validate:{
+                isEmail: true,
+            }
+        
         },
         emp_id:{
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
+            //may unique na ito na sa migrations
+            defaultValue: () => `EMP-${nanoid()}`
         },
         password:{
             type: DataTypes.STRING,
