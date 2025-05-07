@@ -1,4 +1,8 @@
 import Employee from "../models/employee.model.js";
+import { customAlphabet } from "nanoid";
+
+//nanoid
+const nanoid = customAlphabet('1234567890',6);
 
 
 //CRUD Controllers for employee 
@@ -42,15 +46,17 @@ export const getEmployeebyId = async(req,res,next) =>{
 
 //create employee
 export const createEmployee = async(req,res,next)=>{
-    const {fname,lname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
-try {
+    const {fname,lname,sex,birthdate,email,emp_id,password,role,position,profilePic,phone, address} = req.body;
+    const emp_id_generator = `EMP-${nanoid()}`
+
+    try {
     const result = await Employee.create({
         fname: fname,
         lname: lname,
         sex: sex,
         birthdate: birthdate,
         email: email,
-        
+        emp_id: emp_id_generator,
         password: password,
         role: role,
         position: position, 
@@ -73,7 +79,7 @@ try {
 //update employee
 export const updateEmployee = async(req,res,next)=>{
     const {fname,lname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
-    const employeeId = req.params.emp_id;
+    const employeeId = req.params.empId;
     try {
         const result = await Employee.update({
             fname: fname,
@@ -97,7 +103,7 @@ export const updateEmployee = async(req,res,next)=>{
 
 //delete employee
 export const deleteEmployee = async(req,res,next)=>{
-    const employeeId = req.params.emp_id;
+    const employeeId = req.params.empId;
     try {
         const result = await Employee.destroy({where:{id:employeeId}});
         res.status(200).json({message: 'Employee deleted successfully', employee:result});
