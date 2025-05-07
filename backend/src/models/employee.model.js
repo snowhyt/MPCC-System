@@ -7,6 +7,8 @@ const nanoid = customAlphabet('0123456789',6)
 
 
 
+
+
 const Employee = db.define('employee',{
         id:{
             type: DataTypes.INTEGER,
@@ -34,6 +36,10 @@ const Employee = db.define('employee',{
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
+            validate:{
+                isEmail: true,
+            }
         
         },
         emp_id:{
@@ -41,7 +47,7 @@ const Employee = db.define('employee',{
             allowNull: false,
             unique: true,
             //may unique na ito na sa migrations
-            default: () => `EMP-${nanoid()}`
+            defaultValue: () => `EMP-${nanoid()}`
         },
         password:{
             type: DataTypes.STRING,
