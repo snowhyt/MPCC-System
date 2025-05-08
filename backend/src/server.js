@@ -31,7 +31,7 @@ app.get('/',(req,res,next)=>{
 
 //crud route
 app.use('/employees',CrudRoutes);
-
+app.use('/api/auth', authRoute);
 //error handling
 app.use((error, req,res,next) =>{
     console.log(error);
