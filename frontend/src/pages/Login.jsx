@@ -16,7 +16,7 @@ function Login() {
       </div>
 
       {/* Login Section */}
-      <div className="flex items-center justify-center min-h-screen bg-defaultBG px-4">
+      <div className="flex items-center justify-center h-[45rem] bg-defaultBG px-4">
         <div className="w-full max-w-2xl bg-white p-10 md:p-14 rounded-lg shadow-lg space-y-6">
           <h2 className="text-3xl font-bold text-center text-company">LOGIN</h2>
 
@@ -25,7 +25,7 @@ function Login() {
             <div>
               <label
                 htmlFor="emp_ID"
-                className="text-sm font-medium text-gray-600"
+                className="text-lg font-medium text-gray-600"
               >
                 Emp ID
               </label>
@@ -43,7 +43,7 @@ function Login() {
             <div>
               <label
                 htmlFor="password"
-                className="text-sm font-medium text-gray-600"
+                className="text-lg font-medium text-gray-600"
               >
                 Password
               </label>
@@ -69,9 +69,12 @@ function Login() {
           </form>
 
           <div className="text-center text-sm text-gray-500">
-            <p>
+            <p className="text-lg font-semibold">
               Don't have an account?{" "}
-              <a href="#" className="text-blue-500 hover:text-blue-700">
+              <a
+                href="#"
+                className="text-blue-500 hover:text-blue-700 text-lg not-first:font-semibold"
+              >
                 Sign up
               </a>
             </p>
