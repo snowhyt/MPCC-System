@@ -1,7 +1,40 @@
-import React from "react";
+import React, {useState} from "react";
 import Navbar from "../components/Navbar.jsx";
 
 function Signup() {
+
+  const [formData, setFormData] = useState({
+    //name
+    empId: "",
+    firstName: "",
+    middleName: "",
+    lastName: "",
+
+    //birthdate and job role
+    birthday: "",
+    gender: "",
+    position: "",
+    accessLevel: "",
+
+    // Address
+    city: "",
+    barangay: "",
+    street: "",
+
+    // Contact
+    email: "",
+    phoneNumber: "",
+
+    //picture
+    profileImage: null,
+  });
+
+
+
+
+
+
+
   return (
     <>
       <Navbar />
