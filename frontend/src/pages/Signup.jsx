@@ -5,21 +5,21 @@ function Signup() {
 
   const [formData, setFormData] = useState({
     //name
-    empId: "",
-    firstName: "",
-    middleName: "",
-    lastName: "",
+    emp_id: "",
+    fname: "",
+    mname: "",
+    lname: "",
 
     //birthdate and job role
-    birthday: "",
-    gender: "",
+    birthdate: "",
+    sex: "",
     position: "",
-    accessLevel: "",
+    role: "",
 
     // Address
-    city: "",
-    barangay: "",
-    street: "",
+    address1: "",
+    address2: "",
+    address3: "",
 
     // Contact
     email: "",
@@ -30,7 +30,10 @@ function Signup() {
   });
 
 
-
+const handleChange = (e) =>{
+  const {name, value} = e.target;
+  setFormData((prevData) =>({...prevData, [name]: value}));
+};
 
 
 
@@ -47,14 +50,62 @@ function Signup() {
           />
         </div>
         <div className="flex items-center justify-center pt-10 pb-15 max-h-full w-full bg-defaultBG">
+          
           <div className="flex flex-col w-[57rem] h-[72rem] p-8 space-y-6 bg-white rounded-lg shadow-lg">
             <h2 className="text-center text-lg text-blue-500">
               Fill out the form carefully for registration
             </h2>
             <div className="w-full border-t border-blue-500"></div>
-            <form className="flex flex-col space-y-4">
+          
+          {/* this is the form */}
+            <form 
+            className="flex flex-col space-y-4"
+            onSubmit={async (e) => {
+              e.preventDefault();
+
+
+
+
+            //concat the address
+            const {address1, address2, address3, ...otherData} = formData;
+            const mergingAddress = [address1, address2, address3].filter(Boolean);
+            const fullAddress = mergingAddress.join(", ");
+              
+            const submissionData = {
+              ...otherData,
+              address: fullAddress,
+            }
+
+
+
+              try {
+                const response = await fetch("api/auth/signup",{
+                  method: "POST",
+                  headers:{
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(submissionData),
+                  
+                });
+                const result = await response.json();
+
+                if(response.ok){
+                  alert("Signup succesfully");
+                } else {
+                  alert(`Signup failed: ${result.message || "Unknown error"}`)
+                }
+              } catch (error) {
+                console.error("Error during signup:", error);
+                alert("An error occurred during signup.");
+                
+              }
+            
+            
+            }}
+            >
               <div className="flex flex-col items-center justify-center space-y-4">
                 <div className="w-40 h-40 rounded-full border-4 border-blue-700 overflow-hidden">
+                  {/* profile */}
                   <img
                     src="/images/profile.jpeg"
                     alt="Profile"
@@ -65,15 +116,20 @@ function Signup() {
                   EDIT PROFILE
                 </button>
               </div>
+              {/* empid */}
               <label className="flex justify-end text-gray-700 text-md font-bold  pr-18">
-                Emp I.D
+                Emp ID
               </label>
               <input
                 type="text"
-                id="id"
-                name="id"
+                id="emp_id"
+                name="emp_id"
                 className="flex justify-end ml-[45rem] border-black shadow-sm border-1 text-gray-700"
                 placeholder=" Auto-Generated"
+
+                value={formData.emp_id}
+                onChange={handleChange}
+                disabled
               />
               <div className="flex flex-col space-y-4">
                 {/* Employee name */}
@@ -83,24 +139,36 @@ function Signup() {
                 <div className="flex justify-between">
                   <input
                     type="text"
-                    id="firstname"
-                    name="firstname"
+                    id="firstName"
+                    name="firstName"
                     className="border-black border-1 shadow-sm text-gray-700 p-1 w-[16rem]"
                     placeholder=" First Name"
+
+                    value={formData.fname}
+                    onChange={handleChange}
+                    required
                   />
                   <input
                     type="text"
-                    id="firstname"
-                    name="firstname"
+                    id="middleName"
+                    name="middleName"
                     className="border-black border-1 shadow-sm text-gray-700 p-1 w-[16rem]"
                     placeholder=" Middle Name"
+
+                    value={formData.middleName}
+                    onChange={handleChange}
+                    required
                   />
                   <input
                     type="text"
-                    id="firstname"
-                    name="firstname"
+                    id="lastName"
+                    name="lastName"
                     className="border-black border-1 shadow-sm text-gray-700 p-1 w-[16rem]"
                     placeholder=" Last Name"
+
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="flex justify-between">
