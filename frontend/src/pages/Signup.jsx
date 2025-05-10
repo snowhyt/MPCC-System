@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Navbar from "../components/Navbar.jsx";
-
+import {Toaster, toast} from "react-hot-toast";
 function Signup() {
 
   const [formData, setFormData] = useState({
@@ -41,6 +41,7 @@ const handleChange = (e) =>{
   return (
     <>
       <Navbar />
+      <Toaster position='top-center' reverseOrder={false} />
       <div className="min-h-screen bg-white">
         <div>
           <img
@@ -90,9 +91,10 @@ const handleChange = (e) =>{
                 const result = await response.json();
 
                 if(response.ok){
-                  alert("Signup succesfully");
+                  toast.success("Signup succesfully");
                 } else {
                   alert(`Signup failed: ${result.message || "Unknown error"}`)
+                  toast.success(`Signup failed: ${result.message || "Unknown error"}`);
                 }
               } catch (error) {
                 console.error("Error during signup:", error);
