@@ -24,6 +24,10 @@ const Employee = db.define('employee',{
             type: DataTypes.STRING,
             allowNull: false,
         },
+        mname:{
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         sex:{
             type: DataTypes.ENUM('male', 'female'),
             allowNull: false,

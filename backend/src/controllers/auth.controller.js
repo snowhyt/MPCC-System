@@ -5,11 +5,11 @@ import { generateToken } from "../utils/utils.js";
 
 //SIGNUP
 export const signup = async(req,res,next) =>{
-    const {fname,lname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
+    const {fname,lname,mname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
 
     try {
         //check if all fields have data
-        if(!fname || !lname || !sex || !birthdate || !email || !password || !role || !position || !profilePic || !phone || !address)
+        if(!fname || !lname || !mname || !sex || !birthdate || !email || !password || !role || !position || !profilePic || !phone || !address)
             {
                const error = new Error("All fields are required");
                 error.statusCode = 400;
@@ -55,6 +55,7 @@ export const signup = async(req,res,next) =>{
         const newEmployee = await Employee.create({
           fname,
           lname,
+          mname,
           sex,
           birthdate,
           email: email.toLowerCase(),
@@ -137,6 +138,7 @@ export const login = async(req,res) =>{
                 id: LoginEmployee.id,
                 fname: LoginEmployee.fname,
                 lname: LoginEmployee.lname,
+                mname: LoginEmployee.mname,
                 sex: LoginEmployee.sex,
                 birthdate: LoginEmployee.birthdate,
                 email: LoginEmployee.email,
@@ -147,7 +149,7 @@ export const login = async(req,res) =>{
                 address: LoginEmployee.address
             }
         })
-
+        
 } catch(error) {
     console.log("Error in login Controller".message);
     res.status(500).json({message: "Internal server error"});
