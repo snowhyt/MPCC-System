@@ -66,7 +66,6 @@ const handleChange = (e) =>{
 
 
 
-
             //concat the address
             const {address1, address2, address3, ...otherData} = formData;
             const mergingAddress = [address1, address2, address3].filter(Boolean);
@@ -93,12 +92,11 @@ const handleChange = (e) =>{
                 if(response.ok){
                   toast.success("Signup succesfully");
                 } else {
-                  alert(`Signup failed: ${result.message || "Unknown error"}`)
-                  toast.success(`Signup failed: ${result.message || "Unknown error"}`);
+                  toast.error(`Signup failed: ${result.message || "Unknown error"}`);
                 }
               } catch (error) {
                 console.error("Error during signup:", error);
-                alert("An error occurred during signup.");
+                toast.error("An error occurred during signup.");
                 
               }
             
@@ -129,6 +127,7 @@ const handleChange = (e) =>{
                 className="flex justify-end ml-[45rem] border-black shadow-sm border-1 text-gray-700"
                 placeholder=" Auto-Generated"
 
+                //tatanggalin
                 value={formData.emp_id}
                 onChange={handleChange}
                 disabled
@@ -193,12 +192,22 @@ const handleChange = (e) =>{
                         id="birthday"
                         name="birthday"
                         className="border-black border-1 shadow-sm text-gray-700 p-1"
+
+
+                        value={formData.birthdate}
+                        onChange={handleChange}
+                        required
                       />
                       <select
-                        id="gender"
-                        name="gender"
+                        id="sex"
+                        name="sex"
                         className=" text-gray-700 bg-white border border-black shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      >
+                    
+                    
+                        value={formData.sex}
+                        onChange={handleChange}
+                        required
+                    >
                         <option>Select an option</option>
                         <option>Male</option>
                         <option>Female</option>
@@ -209,16 +218,21 @@ const handleChange = (e) =>{
                         name="position"
                         className="border-black border-1 shadow-sm text-gray-700 p-1 w-35"
                         placeholder="Position"
+
+                        value={formData.position}
+                        onChange={handleChange}
+                        required
                       />
                       <select
                         id="accesslevel"
                         name="accesslevel"
                         className=" text-gray-700 bg-white border border-black shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      >
+                     
+                        value={formData.role}
+                     >
                         <option>Select an option</option>
-                        <option>Option 1</option>
-                        <option>Option 2</option>
-                        <option>Option 3</option>
+                        <option>admin</option>
+                        <option>staff</option>
                       </select>
                     </div>
                     <div className="pt-5">
@@ -226,14 +240,26 @@ const handleChange = (e) =>{
                         Address
                       </label>
                       <label
-                        class="flex mb-2 text-sm font-medium text-gray-700 pt-2"
+                        className="flex mb-2 text-sm font-medium text-gray-700 pt-2"
                         for="city"
                       >
-                        City/Municipality
+                        Address Line 1
                       </label>
-                      <select
+                      <input
+                        type="text"
+                        id="address1"
+                        name="address1"
+                        className="border-black border-1 shadow-sm text-gray-700 p-1  w-full"
+                        placeholder="Address Line 1"
+
+                        value={formData.address1}
+                        onChange={handleChange}
+                        required
+                      />
+
+                      {/* <select
                         id="city"
-                        class="w-full py-1 border border-black focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                        className="w-full py-1 border border-black focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
                         onchange="updateBarangays(this.value)"
                       >
                         <option value="">Select a city</option>
@@ -241,26 +267,37 @@ const handleChange = (e) =>{
                         <option value="quezon">Quezon City</option>
                         <option value="makati">Makati</option>
                         <option value="pasig">Pasig</option>
-                      </select>
-                      <label class="flex mb-2 text-sm font-medium text-gray-700 pt-2">
-                        Barangay
+                      </select> */}
+
+
+                      
+                      <label className="flex mb-2 text-sm font-medium text-gray-700 pt-2">
+                       Address Line 2
                       </label>
                       <input
                         type="text"
-                        id="brgy"
-                        name="brgy"
+                        id="address2"
+                        name="address2"
                         className="border-black border-1 shadow-sm text-gray-700 p-1  w-full"
-                        placeholder="Brgy"
+                        placeholder="Address Line 2"
+
+                        value={formData.address2}
+                        onChange={handleChange}
+                        
                       />
-                      <label class="flex mb-2 text-sm font-medium text-gray-700 pt-2">
-                        Street
+                      <label className="flex mb-2 text-sm font-medium text-gray-700 pt-2">
+                        Address Line 3
                       </label>
                       <input
                         type="text"
-                        id="street"
-                        name="street"
+                        id="address3"
+                        name="address3"
                         className="border-black border-1 shadow-sm text-gray-700 p-1  w-full"
-                        placeholder="Street"
+                        placeholder="Address Line 3"
+
+                        value={formData.address3}
+                        onChange={handleChange}
+                        
                       />
                     </div>
                     <div className="flex justify-between pt-5">
@@ -278,6 +315,10 @@ const handleChange = (e) =>{
                         name="email"
                         className="border-black border-1 shadow-sm text-gray-700 p-1 w-[25rem]"
                         placeholder="Enter Email Address"
+
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
                       />
                       <input
                         type="text"
@@ -285,6 +326,10 @@ const handleChange = (e) =>{
                         name="phoneNumber"
                         className="border-black border-1 shadow-sm text-gray-700 p-1 w-[25rem]"
                         placeholder="Enter Phone Number"
+
+
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
                       />
                     </div>
                     <div className="pt-10">

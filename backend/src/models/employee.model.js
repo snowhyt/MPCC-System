@@ -58,7 +58,7 @@ const Employee = db.define('employee',{
             allowNull: false,
         }, 
         role:{
-            type: DataTypes.ENUM('admin', 'employee'),
+            type: DataTypes.ENUM('admin', 'staff'),
             allowNull: false,
         },
         position:{

@@ -56,7 +56,7 @@ export const signup = async(req,res,next) =>{
           fname,
           lname,
           mname,
-          sex,
+          sex: sex.toLowerCase(),
           birthdate,
           email: email.toLowerCase(),
           password: hashedPassword,
@@ -77,6 +77,7 @@ export const signup = async(req,res,next) =>{
         return res.status(201).json({
             message: "Employee created successfully",
             employee:{
+                emp_id: newEmployee.emp_id,
                 id: newEmployee.id,
                 fname: newEmployee.fname,
                 lname: newEmployee.lname,
@@ -167,6 +168,9 @@ export const logout = async(req,res) =>{
         res.status(200).json({message: "Logged out successfully"});
         
     } catch (error) {
-        console.log()
+        console.log(error);
+        res.status(500).json({message: "Internal server error (Logout)"});
+        
+    
     }
 }
