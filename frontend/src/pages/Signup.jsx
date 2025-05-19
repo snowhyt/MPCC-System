@@ -27,13 +27,117 @@ function Signup() {
 
     //picture
     profileImage: null,
+
+
+  
+
   });
+    //password
+    const [showPasswordDialog, setPasswordDialog] = useState(false);
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
 
 const handleChange = (e) =>{
   const {name, value} = e.target;
   setFormData((prevData) =>({...prevData, [name]: value}));
 };
+
+const handlePasswordChange = (e) => setPassword(e.target.value);
+const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
+
+const validateMainFormData = () =>{
+  const requiredFields = {
+    
+    fname: true,
+    mname: true,
+    lname: true,
+    birthdate: true,
+    sex: true,
+    position: true,
+    role: true,
+    address1: true,
+    email: true,
+  };
+
+
+  //may babaguhin pa
+  const fieldDisplayNames = {
+   
+    fname: "First Name",
+    mname: "Middle Name",
+    lname: "Last Name",
+    birthdate: "Birthday",
+    sex: "Sex",
+    position: "Position",
+    role: "Role",
+    address1: "Address Line 1",
+    email: "Email",
+  };
+
+
+  
+
+
+
+for (const field in requiredFields){
+  if(requiredFields[field] && !formData[field]){
+    toast.error(`${fieldDisplayNames[field]} is required.`);
+    return false;
+  } 
+}
+if(formData.email && !/\S+@\S+\.\S+/.test(formData.email)){
+  toast.error("Please enter a valid email address");
+  return false;
+}
+
+return true;
+
+};
+
+const handleCreateAccount = async () => {
+  if(!password || !confirmPassword){
+    toast.error("Password and Confirm password are required.");
+    return;
+  }
+
+  if (password !== confirmPassword){
+    toast.error("Password do not match");
+    return;
+  }
+
+const {address1, address2, address3, ...otherData} = formData;
+const mergingAddress = [address1, address2, address3].filter(Boolean);
+const fullAddress = mergingAddress.join(", ");
+
+const submissionData = {
+  ...otherData,
+  address: fullAddress,
+  password: password,
+};
+
+try {
+  const response = await fetch("api/auth/signup",{
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(submissionData),
+
+  });
+  const result = await response.json();
+  if(response.ok){
+    toast.success("Signup successful!");
+    setPasswordDialog(false);
+    setPassword("");
+    setConfirmPassword("");
+  } else {
+    toast.error(`Signup failed: ${result.message || "Unknown error"}`);
+  }
+} catch (error) {
+  console.error("Error during signup:", error);
+  toast.error("An error occured during signup.");
+}
+};
+
 
 
 
@@ -66,39 +170,13 @@ const handleChange = (e) =>{
 
 
 
-            //concat the address
-            const {address1, address2, address3, ...otherData} = formData;
-            const mergingAddress = [address1, address2, address3].filter(Boolean);
-            const fullAddress = mergingAddress.join(", ");
-              
-            const submissionData = {
-              ...otherData,
-              address: fullAddress,
-            }
-
-
-
-              try {
-                const response = await fetch("api/auth/signup",{
-                  method: "POST",
-                  headers:{
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(submissionData),
-                  
-                });
-                const result = await response.json();
-
-                if(response.ok){
-                  toast.success("Signup succesfully");
-                } else {
-                  toast.error(`Signup failed: ${result.message || "Unknown error"}`);
-                }
-              } catch (error) {
-                console.error("Error during signup:", error);
-                toast.error("An error occurred during signup.");
+              if(validateMainFormData()){
+                setPasswordDialog(true);
                 
-              }
+              }    
+
+
+              
             
             
             }}
@@ -156,7 +234,7 @@ const handleChange = (e) =>{
                     className="border-black border-1 shadow-sm text-gray-700 p-1 w-[16rem]"
                     placeholder=" Middle Name"
 
-                    value={formData.middleName}
+                    value={formData.mname}
                     onChange={handleChange}
                     required
                   />
@@ -167,7 +245,7 @@ const handleChange = (e) =>{
                     className="border-black border-1 shadow-sm text-gray-700 p-1 w-[16rem]"
                     placeholder=" Last Name"
 
-                    value={formData.lastName}
+                    value={formData.lname}
                     onChange={handleChange}
                     required
                   />
@@ -208,7 +286,7 @@ const handleChange = (e) =>{
                         onChange={handleChange}
                         required
                     >
-                        <option>Select an option</option>
+                        <option value="">Select an option</option>
                         <option>Male</option>
                         <option>Female</option>
                       </select>
@@ -229,6 +307,7 @@ const handleChange = (e) =>{
                         className=" text-gray-700 bg-white border border-black shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                      
                         value={formData.role}
+                        onChange={handleChange}
                      >
                         <option>Select an option</option>
                         <option>admin</option>
@@ -257,17 +336,7 @@ const handleChange = (e) =>{
                         required
                       />
 
-                      {/* <select
-                        id="city"
-                        className="w-full py-1 border border-black focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
-                        onchange="updateBarangays(this.value)"
-                      >
-                        <option value="">Select a city</option>
-                        <option value="manila">Manila</option>
-                        <option value="quezon">Quezon City</option>
-                        <option value="makati">Makati</option>
-                        <option value="pasig">Pasig</option>
-                      </select> */}
+              
 
 
                       
@@ -365,6 +434,53 @@ const handleChange = (e) =>{
           Rights Reserved
         </p>
       </div>
+
+      {/* PasswordDialog */}
+      {showPasswordDialog && 
+      (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+            <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md mx-4">
+              <h3 className="text-2xl font-semibold mb-6 text-center text-company">
+                Create Your Password
+              </h3>
+              <div>
+                <label htmlFor="dialogPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                  Password
+                </label>
+                <input 
+                type="password"
+                id="dialogPassword"
+                name="dialogPassword"
+                
+                value={password}
+                onChange={handlePasswordChange}
+                
+                className="mt-1 block w-full px-4 border border-gray-300 rounded-md shadow-sm focus:outline focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="Confirm password"
+                />
+              </div>
+            </div>
+
+            <div className="mt-8 flex justify-emd space-x-4">
+              <button
+              type="button"
+              onClick={() =>{ setPasswordDialog(false); setPassword(""); setConfirmPassword("");}}
+              
+              className="px-6 py-2 text-sm font-medium text-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+              >Cancel</button>
+
+              <button
+              type="button"
+              onClick={handleCreateAccount}
+              
+              className="px-6 py-2 text-sm font-medium text-whtie bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+              Create Account
+              </button>
+            </div>
+
+          </div>
+      )}
     </>
   );
 }
