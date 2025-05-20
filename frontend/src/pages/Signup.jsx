@@ -150,13 +150,13 @@ try {
         <div>
           <img
             src="/images/Hero-section.png"
-            className="w-full h-40"
+            className="w-full h-80 object-cover"
             alt="Hero"
           />
         </div>
-        <div className="flex items-center justify-center pt-10 pb-15 max-h-full w-full bg-defaultBG">
+        <div className="relative z-10 mt-[-10rem] flex items-center justify-center pt-10 pb-15 max-h-full w-full bg-defaultBG">
           
-          <div className="flex flex-col w-[57rem] h-[72rem] p-8 space-y-6 bg-white rounded-lg shadow-lg">
+          <div className="flex flex-col w-[57rem] h-[72rem] p-8 space-y-6 ng-white rounded-lg shadow-lg overflow-y-auto">
             <h2 className="text-center text-lg text-blue-500">
               Fill out the form carefully for registration
             </h2>
@@ -218,8 +218,8 @@ try {
                 <div className="flex justify-between">
                   <input
                     type="text"
-                    id="firstName"
-                    name="firstName"
+                    id="fname"
+                    name="fname"
                     className="border-black border-1 shadow-sm text-gray-700 p-1 w-[16rem]"
                     placeholder=" First Name"
 
@@ -229,8 +229,8 @@ try {
                   />
                   <input
                     type="text"
-                    id="middleName"
-                    name="middleName"
+                    id="mname"
+                    name="mname"
                     className="border-black border-1 shadow-sm text-gray-700 p-1 w-[16rem]"
                     placeholder=" Middle Name"
 
@@ -240,8 +240,8 @@ try {
                   />
                   <input
                     type="text"
-                    id="lastName"
-                    name="lastName"
+                    id="lname"
+                    name="lname"
                     className="border-black border-1 shadow-sm text-gray-700 p-1 w-[16rem]"
                     placeholder=" Last Name"
 
@@ -259,16 +259,16 @@ try {
                 <div className="flex flex-col space-y-4">
                   <div className="">
                     <label className="text-black text-md font-bold flex justify-between pb-3">
-                      <p className="text-gray-700">Birthday</p>
-                      <p className="text-gray-700 pl-2">Gender</p>
-                      <p className="text-gray-700 pl-3">Position</p>
+                      <p className="text-gray-700">Birthdate</p>
+                      <p className="text-gray-700 pl-2">Sex</p>
+                      <p className="text-gray-700 pl-3">Job Position</p>
                       <p className="text-gray-700 pr-12">Access level</p>
                     </label>
                     <div className="flex justify-between">
                       <input
                         type="date"
-                        id="birthday"
-                        name="birthday"
+                        id="birthdate"
+                        name="birthdate"
                         className="border-black border-1 shadow-sm text-gray-700 p-1"
 
 
@@ -302,14 +302,14 @@ try {
                         required
                       />
                       <select
-                        id="accesslevel"
-                        name="accesslevel"
+                        id="role"
+                        name="role"
                         className=" text-gray-700 bg-white border border-black shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                      
                         value={formData.role}
                         onChange={handleChange}
                      >
-                        <option>Select an option</option>
+                        <option value="">Select an option</option>
                         <option>admin</option>
                         <option>staff</option>
                       </select>
@@ -320,7 +320,7 @@ try {
                       </label>
                       <label
                         className="flex mb-2 text-sm font-medium text-gray-700 pt-2"
-                        for="city"
+                        htmlFor="address1"
                       >
                         Address Line 1
                       </label>
@@ -444,7 +444,7 @@ try {
                 Create Your Password
               </h3>
               <div>
-                <label htmlFor="dialogPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="dialogPasswordInput" className="block text-sm font-medium text-gray-700 mb-1">
                   Password
                 </label>
                 <input 
@@ -456,29 +456,44 @@ try {
                 onChange={handlePasswordChange}
                 
                 className="mt-1 block w-full px-4 border border-gray-300 rounded-md shadow-sm focus:outline focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Confirm password"
+                placeholder="Enter password"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="confirmDialogPasswordInput" className="block text-sm font-medium text-gray-700 mb-1 pt-4">
+                  Confirm Password
+                </label>
+                <input 
+                type="password" 
+                id="confirmDialogPasswordInput"
+                name="confirmDialogPassword"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
             </div>
 
-            <div className="mt-8 flex justify-emd space-x-4">
+            <div className="mt-8 flex justify-end space-x-4">
               <button
               type="button"
               onClick={() =>{ setPasswordDialog(false); setPassword(""); setConfirmPassword("");}}
               
-              className="px-6 py-2 text-sm font-medium text-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+             className="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
               >Cancel</button>
 
               <button
               type="button"
               onClick={handleCreateAccount}
               
-              className="px-6 py-2 text-sm font-medium text-whtie bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+               className="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
               Create Account
               </button>
+            
             </div>
-
           </div>
       )}
     </>
