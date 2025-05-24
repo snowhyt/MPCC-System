@@ -85,6 +85,7 @@ return true;
 const handleCreateAccount = async () => {
   if(!password || !confirmPassword){
     toast.error("Password and Confirm password are required.");
+    console.log("Submitting data to backend:", JSON.stringify(submissionData, null, 2));
     return;
   }
 
