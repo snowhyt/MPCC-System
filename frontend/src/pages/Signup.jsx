@@ -3,9 +3,9 @@ import Navbar from "../components/Navbar.jsx";
 import {Toaster, toast} from "react-hot-toast";
 function Signup() {
 
-  const [formData, setFormData] = useState({
+const initialFormData = {
     //name
-    emp_id: "",
+  
     fname: "",
     mname: "",
     lname: "",
@@ -29,9 +29,12 @@ function Signup() {
     profileImage: null,
 
 
-  
+}
 
-  });
+
+
+
+  const [formData, setFormData] = useState(initialFormData);
     //password
     const [showPasswordDialog, setPasswordDialog] = useState(false);
     const [password, setPassword] = useState("");
@@ -47,44 +50,28 @@ const handlePasswordChange = (e) => setPassword(e.target.value);
 const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
 const validateMainFormData = () =>{
-  const requiredFields = {
-    
-    fname: true,
-    mname: true,
-    lname: true,
-    birthdate: true,
-    sex: true,
-    position: true,
-    role: true,
-    address1: true,
-    email: true,
-  };
 
-
-  //may babaguhin pa
   const fieldDisplayNames = {
-   
     fname: "First Name",
     mname: "Middle Name",
     lname: "Last Name",
     birthdate: "Birthday",
     sex: "Sex",
     position: "Position",
-    role: "Role",
+    role: "Acces Level",
     address1: "Address Line 1",
     email: "Email",
+    phoneNumber: "Phone Number",
   };
 
 
-  
 
-
-
-for (const field in requiredFields){
-  if(requiredFields[field] && !formData[field]){
+for (const field in fieldDisplayNames){
+  if(Object.prototype.hasOwnProperty.call(formData, field) && !formData[field]){
     toast.error(`${fieldDisplayNames[field]} is required.`);
     return false;
   } 
+ 
 }
 if(formData.email && !/\S+@\S+\.\S+/.test(formData.email)){
   toast.error("Please enter a valid email address");
@@ -117,27 +104,60 @@ const submissionData = {
 };
 
 try {
-  const response = await fetch("api/auth/signup",{
+  const response = await fetch("http://localhost:5001/api/auth/signup",{
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(submissionData),
 
+   
   });
-  const result = await response.json();
-  if(response.ok){
-    toast.success("Signup successful!");
-    setPasswordDialog(false);
+  
+
+  let result;
+
+  try {
+    result = await response.json();
+
+  } catch (jsonError) {
+    console.error("Error parsing JSON from response:",jsonError, "Status: ", response.status, "StatusText: ", response.statusText)
+   
+
+    //new changes
+
+    let textReponse = "";
+    
+    try {
+      textReponse = await response.text();
+      console.error ("Non-JSON response text:", textReponse);
+    } catch (textError) {
+      console.error("Could not get text from non-JSON response:", textError);
+    }
+    toast.error(`Signup failed: Server returned an unexpected response, Status: ${response.status}.${textReponse}`)
+    return;
+  }
+  
+  if (response.ok){
+    toast.success(result.message || "Signup successful");
+
+    //reset form and password fields on success
+    setFormData(initialFormData);
     setPassword("");
     setConfirmPassword("");
-  } else {
-    toast.error(`Signup failed: ${result.message || "Unknown error"}`);
+    setPasswordDialog(false);
+    
+  } else{
+    console.error("Signup failed with status:", response.status, "Backend response:", result);
+    toast.error(`Signup failed: ${result.message || "An unknown error occurred on the server"}`);
   }
-} catch (error) {
-  console.error("Error during signup:", error);
-  toast.error("An error occured during signup.");
-}
+  
+} catch (networkError) {
+  console.error("Network error during signup:", networkError);
+  toast.error("A network error occurred. Please check your connection or if the server is running." )
+
+
 };
 
+};
 
 
 
@@ -156,7 +176,7 @@ try {
         </div>
         <div className="relative z-10 mt-[-10rem] flex items-center justify-center pt-10 pb-15 max-h-full w-full bg-defaultBG">
           
-          <div className="flex flex-col w-[57rem] h-[72rem] p-8 space-y-6 ng-white rounded-lg shadow-lg overflow-y-auto">
+         <div className="flex flex-col w-[57rem] max-h-[calc(100vh-12rem)] p-8 space-y-6 bg-white rounded-lg shadow-lg overflow-y-auto"> 
             <h2 className="text-center text-lg text-blue-500">
               Fill out the form carefully for registration
             </h2>
@@ -194,22 +214,7 @@ try {
                   EDIT PROFILE
                 </button>
               </div>
-              {/* empid */}
-              <label className="flex justify-end text-gray-700 text-md font-bold  pr-18">
-                Emp ID
-              </label>
-              <input
-                type="text"
-                id="emp_id"
-                name="emp_id"
-                className="flex justify-end ml-[45rem] border-black shadow-sm border-1 text-gray-700"
-                placeholder=" Auto-Generated"
-
-                //tatanggalin
-                value={formData.emp_id}
-                onChange={handleChange}
-                disabled
-              />
+             
               <div className="flex flex-col space-y-4">
                 {/* Employee name */}
                 <label className="text-gray-700 text-md font-bold">
@@ -308,6 +313,7 @@ try {
                      
                         value={formData.role}
                         onChange={handleChange}
+                        required
                      >
                         <option value="">Select an option</option>
                         <option>admin</option>
@@ -475,27 +481,28 @@ try {
                 />
               </div>
             </div>
-
+        {/* button */}
             <div className="mt-8 flex justify-end space-x-4">
-              <button
-              type="button"
-              onClick={() =>{ setPasswordDialog(false); setPassword(""); setConfirmPassword("");}}
-              
-             className="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
-              >Cancel</button>
+                <button
+                type="button"
+                onClick={() =>{ setPasswordDialog(false); setPassword(""); setConfirmPassword("");}}
+                
+               className="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+                >Cancel</button>
 
-              <button
-              type="button"
-              onClick={handleCreateAccount}
-              
-               className="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-              Create Account
+                <button
+                type="button"
+                onClick={handleCreateAccount}
+                
+                 className="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                Create Account
               </button>
             
             </div>
           </div>
       )}
+      
     </>
   );
 }
