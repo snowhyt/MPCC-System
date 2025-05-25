@@ -4,18 +4,14 @@ import {Toaster, toast} from "react-hot-toast";
 function Signup() {
 
 const initialFormData = {
-    //name
-  
     fname: "",
     mname: "",
     lname: "",
-
-    //birthdate and job role
     birthdate: "",
     sex: "",
     position: "",
     role: "",
-
+    
     // Address
     address1: "",
     address2: "",
@@ -23,10 +19,9 @@ const initialFormData = {
 
     // Contact
     email: "",
-    phoneNumber: "",
+    phone: "",
 
-    //picture
-    profileImage: null,
+   
 
 
 }
@@ -50,7 +45,7 @@ const handlePasswordChange = (e) => setPassword(e.target.value);
 const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
 const validateMainFormData = () =>{
-
+//for validation only
   const fieldDisplayNames = {
     fname: "First Name",
     mname: "Middle Name",
@@ -58,10 +53,11 @@ const validateMainFormData = () =>{
     birthdate: "Birthday",
     sex: "Sex",
     position: "Position",
-    role: "Acces Level",
+    role: "Access Level",
     address1: "Address Line 1",
     email: "Email",
-    phoneNumber: "Phone Number",
+    phone: "Phone",
+    address: "Address",
   };
 
 
@@ -125,15 +121,15 @@ try {
 
     //new changes
 
-    let textReponse = "";
+    let textResponse = "";
     
     try {
-      textReponse = await response.text();
-      console.error ("Non-JSON response text:", textReponse);
+      textResponse = await response.text();
+      console.error ("Non-JSON response text:", textResponse);
     } catch (textError) {
       console.error("Could not get text from non-JSON response:", textError);
     }
-    toast.error(`Signup failed: Server returned an unexpected response, Status: ${response.status}.${textReponse}`)
+    toast.error(`Signup failed: Server returned an unexpected response, Status: ${response.status}.${textResponse}`)
     return;
   }
   
@@ -177,7 +173,7 @@ try {
         </div>
         <div className="relative z-10 mt-[-10rem] flex items-center justify-center pt-10 pb-15 max-h-full w-full bg-defaultBG">
           
-         <div className="flex flex-col w-[57rem] max-h-[calc(100vh-12rem)] p-8 space-y-6 bg-white rounded-lg shadow-lg overflow-y-auto"> 
+        <div className="flex flex-col w-[57rem] max-h-[calc(100vh-12rem)] p-8 space-y-6 bg-white rounded-lg shadow-lg overflow-y-auto"> 
             <h2 className="text-center text-lg text-blue-500">
               Fill out the form carefully for registration
             </h2>
@@ -202,9 +198,9 @@ try {
             
             }}
             >
-              <div className="flex flex-col items-center justify-center space-y-4">
+              {/* <div className="flex flex-col items-center justify-center space-y-4">
                 <div className="w-40 h-40 rounded-full border-4 border-blue-700 overflow-hidden">
-                  {/* profile */}
+              
                   <img
                     src="/images/profile.jpeg"
                     alt="Profile"
@@ -214,8 +210,8 @@ try {
                 <button className="px-4 py-2 text-white bg-blue-700 rounded-md hover:bg-blue-800">
                   EDIT PROFILE
                 </button>
-              </div>
-             
+              </div> */}
+          
               <div className="flex flex-col space-y-4">
                 {/* Employee name */}
                 <label className="text-gray-700 text-md font-bold">
@@ -311,11 +307,11 @@ try {
                         id="role"
                         name="role"
                         className=" text-gray-700 bg-white border border-black shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                     
+                    
                         value={formData.role}
                         onChange={handleChange}
                         required
-                     >
+                  >
                         <option value="">Select an option</option>
                         <option>admin</option>
                         <option>staff</option>
@@ -348,7 +344,7 @@ try {
 
                       
                       <label className="flex mb-2 text-sm font-medium text-gray-700 pt-2">
-                       Address Line 2
+                      Address Line 2
                       </label>
                       <input
                         type="text"
@@ -398,13 +394,13 @@ try {
                       />
                       <input
                         type="text"
-                        id="phoneNumber"
-                        name="phoneNumber"
+                        id="phone"
+                        name="phone"
                         className="border-black border-1 shadow-sm text-gray-700 p-1 w-[25rem]"
                         placeholder="Enter Phone Number"
 
 
-                        value={formData.phoneNumber}
+                        value={formData.phone}
                         onChange={handleChange}
                       />
                     </div>
@@ -445,13 +441,13 @@ try {
       {/* PasswordDialog */}
       {showPasswordDialog && 
       (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/10">
             <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md mx-4">
               <h3 className="text-2xl font-semibold mb-6 text-center text-company">
                 Create Your Password
               </h3>
               <div>
-                <label htmlFor="dialogPasswordInput" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="dialogPasswordInput" className="block text-sm font-medium text-gray-700 mb-1 pt-4">
                   Password
                 </label>
                 <input 
@@ -462,7 +458,7 @@ try {
                 value={password}
                 onChange={handlePasswordChange}
                 
-                className="mt-1 block w-full px-4 border border-gray-300 rounded-md shadow-sm focus:outline focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="Enter password"
                 />
               </div>
@@ -481,25 +477,26 @@ try {
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
-            </div>
+          
         {/* button */}
+            
             <div className="mt-8 flex justify-end space-x-4">
                 <button
                 type="button"
                 onClick={() =>{ setPasswordDialog(false); setPassword(""); setConfirmPassword("");}}
                 
-               className="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+              className="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
                 >Cancel</button>
 
                 <button
                 type="button"
                 onClick={handleCreateAccount}
                 
-                 className="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="px-6 py-2 text-sm font-medium text-white bg-company rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                 Create Account
               </button>
-            
+            </div>
             </div>
           </div>
       )}
