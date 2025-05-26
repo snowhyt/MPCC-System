@@ -1,11 +1,12 @@
 import React from 'react';
-
+import NavbarDashboard from '../components/NavbarDashboard'; 
 
 function Dashboard() {
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
+    <>
+    <NavbarDashboard/>
+    
+    </>
   );
 }
 
