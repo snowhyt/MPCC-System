@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import Navbar from "../components/Navbar.jsx";
+import Footer from "../components/Footer.jsx";
 import {Toaster, toast} from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 function Signup() {
 
 const initialFormData = {
@@ -190,11 +191,11 @@ const handleGoToLogin = () =>{
         </div>
         <div className="relative z-10 mt-[-10rem] flex items-center justify-center pt-10 pb-15 max-h-full w-full bg-defaultBG">
           
-        <div className="flex flex-col w-[57rem] max-h-[calc(100vh-12rem)] p-8 space-y-6 bg-white rounded-lg shadow-lg overflow-y-auto"> 
-            <h2 className="text-center text-lg text-blue-500">
+         <div className="flex flex-col w-[57rem] p-8 space-y-6 bg-white rounded-lg shadow-lg">
+            <h2 className="text-center text-xl text-company font-semibold">
               Fill out the form carefully for registration
             </h2>
-            <div className="w-full border-t border-blue-500"></div>
+            <div className="w-full border-t border-company"></div>
           
           {/* this is the form */}
             <form 
@@ -427,7 +428,7 @@ const handleGoToLogin = () =>{
                     <div className="flex justify-center pt-10">
                       <button
                         type="submit"
-                        className="w-[15rem] py-3 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-lg"
+                        className="w-[15rem] py-3 px-4 bg-company text-white font-semibold rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-lg"
                       >
                         Submit
                       </button>
@@ -436,15 +437,37 @@ const handleGoToLogin = () =>{
                 </div>
               </div>
             </form>
+
+             {/* Don't have an account? */}
+              <div className="text-center text-sm text-gray-500">
+                        <p className="text-lg font-semibold">
+                          Have an existing account?{" "}
+                         
+                            <Link
+                            className="text-company hover:text-blue-700 text-lg not-first:font-semibold"
+                            to="/login"
+                          >
+                            Login
+                          </Link>
+                        </p>
+                      </div>
           </div>
         </div>
+
+          
+
       </div>
+
+             
+
+
+                {/* Footer */}
       <div className="bg-company w-full">
         <div className="flex flex-col items-center h-25">
           <img
             src="/images/MPC-WHITETEXT.png"
             alt="Logo"
-            className="w-65 h-20"
+            className="w-65 h-auto"
           />
           <div className="w-11/12 border-t border-gray-300 mt-4 mb-2"></div>
         </div>
@@ -454,6 +477,8 @@ const handleGoToLogin = () =>{
           Rights Reserved
         </p>
       </div>
+      <Footer />
+
 
       {/* PasswordDialog */}
       {showPasswordDialog && 
@@ -515,8 +540,10 @@ const handleGoToLogin = () =>{
                 Create Account
               </button>
             </div>
+         
             </div>
           </div>
+ 
       )}
 
       {/* Account Created Dialog/Modal */}

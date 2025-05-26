@@ -3,6 +3,7 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import { generateToken } from "../utils/utils.js";
 
+
 //SIGNUP
 export const signup = async(req,res,next) =>{
     console.log("Signup request received");
@@ -144,6 +145,7 @@ export const login = async(req,res) =>{
         //send response
         res.status(200).json({
             message: "Login successful",
+            token: LoginEmployee.token,
             employee:{
                 id: LoginEmployee.id,
                 fname: LoginEmployee.fname,
