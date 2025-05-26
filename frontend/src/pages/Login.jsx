@@ -33,7 +33,7 @@ function Login() {
       }));
       navigate(location.pathname, { replace: true, state: {} })
     } 
-  },[location.state]);
+  },[location.state, navigate,location.pathname]);
 
   const handleChange = (e) =>{
     const {name, value} = e.target;
