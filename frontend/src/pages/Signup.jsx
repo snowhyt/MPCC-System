@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Navbar from "../components/Navbar.jsx";
 import {Toaster, toast} from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
 function Signup() {
 
 const initialFormData = {
@@ -35,6 +36,10 @@ const initialFormData = {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    //account created modal
+    const [showAccountCreatedDialog, setShowAccountCreatedDialog] = useState(false);
+    const [newAccountDetails, setNewAccountDetails] = useState(null);
+    const navigate = useNavigate();
 
 const handleChange = (e) =>{
   const {name, value} = e.target;
@@ -81,7 +86,6 @@ return true;
 const handleCreateAccount = async () => {
   if(!password || !confirmPassword){
     toast.error("Password and Confirm password are required.");
-    console.log("Submitting data to backend:", JSON.stringify(submissionData, null, 2));
     return;
   }
 
@@ -137,9 +141,8 @@ try {
     toast.success(result.message || "Signup successful");
 
     //reset form and password fields on success
-    setFormData(initialFormData);
-    setPassword("");
-    setConfirmPassword("");
+    setNewAccountDetails(result.employee);
+    setShowAccountCreatedDialog(true);
     setPasswordDialog(false);
     
   } else{
@@ -155,6 +158,20 @@ try {
 };
 
 };
+
+const handleGoToLogin = () =>{
+  if(newAccountDetails && newAccountDetails.emp_id){
+    navigate('/login', {state:{emp_id: newAccountDetails.emp_id}});
+  } else{
+    navigate('/login');
+  }
+  setShowAccountCreatedDialog(false);
+  setNewAccountDetails(null);
+  //reset or clear form inputs
+  setFormData(initialFormData);
+  setPassword("");
+  setConfirmPassword("");
+}
 
 
 
@@ -475,7 +492,8 @@ try {
                 onChange={handleConfirmPasswordChange}
 
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
+                placeholder="Re-enter password"
+               />
               </div>
           
         {/* button */}
@@ -499,6 +517,52 @@ try {
             </div>
             </div>
           </div>
+      )}
+
+      {/* Account Created Dialog/Modal */}
+      {showAccountCreatedDialog && newAccountDetails &&(
+        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/10">
+          <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-lg mx-4 text-center">
+            <h3 className="text-2xl font-semibold mb-6 text-company">
+              Account Created Successfully!
+            </h3>
+            <p className="text-red-700 text-sm mb-4"><i>Please take note of your employee ID and password.</i></p>
+            <div className="flex flex-col items-center space-y-3 mb-6">
+              <img src={newAccountDetails.profilePic || "/images/profile.jpeg"} 
+              alt="profilePic" 
+              className="w-24 h-24 rounded-full border-2 border-company object-cover"
+              onError = {(e) =>{
+                //fallback oif URL fails to load
+                e.target.oneerror = null;
+                e.target.src = "images/profile.jpeg"
+              }}
+              />
+              
+              {/* show emp_id */}
+              <p className="text-gray-700 text-2xl">
+                <strong>Employee ID: {newAccountDetails.emp_id}</strong>
+              </p>
+              {/* show fullname */}
+              <p className="text-gray-700">
+                <strong>Full name: </strong>
+                {`${newAccountDetails.fname + " "}${newAccountDetails.mname ? newAccountDetails.mname + ' ' : ' '}${newAccountDetails.lname}`}
+              </p>
+              {/* show trabaho */}
+              <p className="text-gray-700">
+                <strong>Email: </strong>
+                {newAccountDetails.email}
+
+              </p>
+
+            </div>
+            <button
+            type="button"
+            onClick={handleGoToLogin}
+              className = "w-full sm:w-auto px-8 py-3 text-lg font-medium tex-white bg-company rounded-md hover:bg-blue-700 focus-outline-none focus:ring-2 focus:ring-blue-500"
+            > Login
+            </button>
+          </div>
+        </div>
       )}
       
     </>

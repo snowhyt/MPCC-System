@@ -69,7 +69,7 @@ export const signup = async(req,res,next) =>{
             position, 
             phone,
             address,
-            profilePic : sex === "male" ? boyProfilePic : girlProfilePic
+            profilePic : sex.toLowerCase() === "male" ? boyProfilePic : girlProfilePic
         });
 
         //generate token
@@ -92,6 +92,9 @@ export const signup = async(req,res,next) =>{
                 email: newEmployee.email,
                 role: newEmployee.role,
                 position: newEmployee.position,
+                profilePic: newEmployee.profilePic,
+                phone: newEmployee.phone,
+                address: newEmployee.address
             }
         })
 
@@ -152,7 +155,8 @@ export const login = async(req,res) =>{
                 role: LoginEmployee.role,
                 position: LoginEmployee.position,
                 phone: LoginEmployee.phone,
-                address: LoginEmployee.address
+                address: LoginEmployee.address,
+                profilePic: LoginEmployee.profilePic
             }
         })
         
