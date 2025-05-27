@@ -4,12 +4,7 @@ import { Routes, Route} from 'react-router-dom';
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-
-
 import {Toaster} from "react-hot-toast"
-
-
-
 
 function App() {
   

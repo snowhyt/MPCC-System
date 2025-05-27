@@ -570,7 +570,7 @@ const handleGoToLogin = () =>{
             <button
             type="button"
             onClick={handleGoToLogin}
-              className = "w-full sm:w-auto px-8 py-3 text-lg font-medium tex-white bg-company rounded-md hover:bg-blue-700 focus-outline-none focus:ring-2 focus:ring-blue-500"
+              className = "w-full sm:w-auto px-8 py-3 text-white text-lg font-medium tex-white bg-company rounded-md hover:bg-blue-700 focus-outline-none focus:ring-2 focus:ring-blue-500"
             > Login
             </button>
           </div>
