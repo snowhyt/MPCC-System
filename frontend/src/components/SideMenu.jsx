@@ -1,11 +1,19 @@
 import React from 'react';
+import appointmentIcon from '/images/icons/appointment-icon.png';
+import dashboardIcon from '/images/icons/dashboard-icon.png';
+import customerIcon from '/images/icons/customer-icon.png';
+import inventoryIcon from '/images/icons/inventory-icon.png';
+import billingIcon from '/images/icons/billing-icon.png';
+import payrollIcon from '/images/icons/payroll-icon.png';
+import userIcon from '/images/icons/user-control-icon.png';
 
 
 
 
 function SideMenu() {
 
-const menuItems = [
+// Define the initial structure of menu items without icons
+const rawMenuItems = [
   { label: 'Dashboard', link: '/dashboard' }, // Assuming a route for dashboard
   { 
     label: 'Appointment Scheduler', 
@@ -51,29 +59,51 @@ const menuItems = [
     ]
   },
 ];
+
+// Map icons to menu items, creating a new array called 'menuItems'
+const menuItems = rawMenuItems.map(item =>{
+  let icon = null;
+  if(item.label === 'Dashboard') icon = dashboardIcon;
+  else if(item.label === 'Appointment Scheduler') icon = appointmentIcon;
+  else if(item.label === 'Customer Management') icon = customerIcon;
+  else if(item.label === 'Inventory Tracking') icon = inventoryIcon;
+  else if(item.label === 'Billing & Invoicing') icon = billingIcon;
+  else if(item.label === 'Payroll Management') icon = payrollIcon;
+  else if(item.label === 'User Control') icon = userIcon;
+  return {
+    ...item,
+    icon
+  };
+});
+
+
     return (
         <>
-          <aside className="h-screen w-64 bg-white text-black flex flex-col shadow-lg">
-      <div className="px-6 py-4 text-2xl font-bold border-b  border-gray-700">
-        MENU
-      </div>
+          <aside className="w-64 bg-white text-black flex flex-col shadow-lg"> {/* Removed h-screen, it will inherit height from parent flex container */}
+      
 
       <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
         {menuItems.map((item) => (
           <div key={item.label}>
             {item.subItems ? (
-              <>
-                <span className="block p-2 text-lg font-bold text-black-400 uppercase ">{item.label}</span>
-                <div className="ml-4 space-y-1">
+              <div> {/* Grouping span and sub-items list */}
+                <span className="block p-2 text-lg font-bold text-gray-600 uppercase flex items-center"> {/* Adjusted text color, added flex items-center */}
+                  {item.icon && <img src={item.icon} alt={`${item.label} icon`} className="w-8 h-8 mr-3" />}
+                  {item.label}
+                </span>
+                <div className="ml-4 space-y-1"> {/* Indent sub-items */}
                   {item.subItems.map(subItem => (
-                    <a key={subItem.label} href={subItem.link} className="block p-2 rounded-lg hover:bg-company hover:text-white transition-colors text-sm">
+                    <a key={subItem.label} href={subItem.link} className="block p-2 rounded-lg text-gray-700 hover:bg-company hover:text-white transition-colors text-sm ml-3"> {/* Added ml-3 for sub-item text alignment with icon */}
                       {subItem.label}
                     </a>
                   ))}
                 </div>
-              </>
+              </div>
             ) : (
-              <a href={item.link} className="block p-2 rounded-lg hover:bg-company hover:text-white transition-colors">
+              // Main menu item without sub-items (like Dashboard)
+              // Added flex and items-center to align icon and text
+              <a href={item.link} className="block p-2 rounded-lg text-gray-700 hover:bg-company hover:text-white transition-colors flex items-center"> {/* Added text-gray-700 for consistency */}
+                {item.icon && <img src={item.icon} alt={`${item.label} icon`} className="w-5 h-5 mr-3" />}
                 {item.label}
               </a>
             )}
@@ -81,9 +111,7 @@ const menuItems = [
         ))}
       </nav>
 
-      <div className="p-4 border-t border-gray-700 text-sm text-gray-400">
-        &copy; {new Date().getFullYear()} MPCC System
-      </div>
+     
     </aside>
 
 
