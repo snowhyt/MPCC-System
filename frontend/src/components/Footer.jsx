@@ -2,9 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-   <>
-              {/* Footer */}
-      <div className="bg-company w-full">
+      <div className="bg-company w-full mt-auto"> {/* Added mt-auto to push footer to the bottom */}
         <div className="flex flex-col items-center h-25">
           <img
             src="/images/MPC-WHITETEXT.png"
@@ -18,14 +16,10 @@ function Footer() {
           Copyright <strong>Metropolitan Pest Control Corporation.</strong> All
           Rights Reserved
         </p>
-         <div className="p-4 text-center text-sm text-gray-400">
+        <div className="p-4 text-center text-sm text-gray-400">
         &copy; {new Date().getFullYear()} Developed by Push And Pull Technologies
       </div>
       </div>
-   </>
-   
-
-
 )
 }
 

@@ -1,10 +1,9 @@
 import React from 'react';
 import NavbarDashboard from '../components/NavbarDashboard';
-import Footer from '../components/Footer';
 import SideMenu from '../components/SideMenu';
-import salesIconUrl from '/images/icons/sales-icon.svg';
-import transactionIconUrl from '/images/icons/transaction-icon.svg';
-import customerIconUrl from '/images/icons/active-customer-icon.svg';
+import salesIconUrl from '/images/icons/sale-icon.png';
+import transactionIconUrl from '/images/icons/transac-icon.png';
+import customerIconUrl from '/images/icons/active-icon.png';
 import indicatorGreen from '/images/icons/indicator-green.png';
 import indicatorRed from '/images/icons/indicator-red.png';
 
@@ -12,16 +11,16 @@ import indicatorRed from '/images/icons/indicator-red.png';
 function Dashboard() {
   // A simple component for individual stat cards
   const StatCard = ({ title, value, desc, icon, indicator, indicatorAlt }) => (
-    <div className="stat-icon bg-base-100 shadow-lg rounded-lg p-8"> {/* Added padding and background for clarity */}
-     <img src={icon} alt={`${title} Icon`} className="w-16 h-16 mb-2" /> {/* Dynamic alt, using standard Tailwind w-16/h-16 */}
+    <div className="stat-icon bg-base-100 shadow-lg rounded-3xl p-5"> {/* Added padding and background for clarity */}
+     <img src={icon} alt={`${title} Icon`} className="w-13 h-13 mb-2" /> {/* Dynamic alt, using standard Tailwind w-16/h-16 */}
       <div className="stat-title text-lg text-gray-500">{title}</div>
       <div className="stat-value text-4xl font-bold text-gray-800">{value}</div>
       <div>
 
-      {desc && indicator && ( <div className="stat-desc text-sm text-company flex gap-4 items-center mt-6 ml-5">
-        <img className='stat-indicator w-8 h-8' src={indicator} alt={indicatorAlt} />
+      {desc && indicator && ( <div className="stat-desc text-sm text-company flex gap-4 items-center mt-3 ml-5">
+        <img className='stat-indicator w-5 h-5' src={indicator} alt={indicatorAlt} />
         <span className='flex-1 text-lg font-bold'>{desc}%</span>
-        <p className='flex-1 text-right text-lg text-gray-500'>Than the last month</p>
+        <p className='flex-1 text-right text-md text-gray-500'>Than the last month</p>
        
 
         </div>
@@ -49,9 +48,12 @@ function Dashboard() {
     return { desc: descValue, indicator: null, indicatorAlt: '' };
   };
 
-   const StatGraph = ({ title, value, desc }) => (
-    <div className="stat bg-base-100 shadow-lg rounded-lg p-4"> {/* Added padding and background for clarity */}
-      <div className="stat-title text-sm text-gray-500">{title}</div>
+   const StatGraph = ({ title, value, viewLink, desc }) => (
+    <div className="stat bg-base-100 shadow-lg rounded-3xl p-4 h-100"> {/* Added padding and background for clarity */}
+     <div className='flex items-start justify-between px-2'>
+      <div className="stat-title text-2xl font-bold text-gray-700">{title}</div>
+      <button className="stat-view hover:text-company text-base font-normal text-gray-400 mt-1" onClick={viewLink}>View All</button>
+</div>
       <div className="stat-value text-4xl font-bold text-gray-800">{value}</div>
       {desc && <div className="stat-desc text-xs text-company">{desc}</div>}
     </div>
@@ -62,11 +64,11 @@ function Dashboard() {
       <NavbarDashboard />
       <div className="flex flex-1 overflow-hidden"> {/* Flex container for SideMenu and main content */}
         <SideMenu /> {/* SideMenu will take its defined width (w-64 from its own file) */}
-        <main className="flex-1 p-6 overflow-y-auto"> {/* Main content area */}
-          <h1 className="text-3xl font-semibold text-gray-800 mb-8">Dashboard Overview</h1>
+        <main className="flex-1 p-6 overflow-y-auto mx-30"> {/* Main content area */}
+          <h1 className="text-3xl font-semibold text-company mb-8">Dashboard Overview</h1>
           
           {/* Container for multiple stats cards, using a responsive grid */}
-         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
             <StatCard 
               icon={salesIconUrl} 
               title="Total Sales" 
@@ -88,16 +90,28 @@ function Dashboard() {
           </div>
              {/* Container for multiple stats cards, using a responsive grid */}
            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            <StatGraph title="Total Sales" value="89,400" desc="21% more than last month" />
-            <StatGraph title="Total Successful Transactions" value="2,350" desc="5% more than last week" />
+            <StatGraph 
+            title="Customer Reservations" 
+            viewLink={() => console.log("View All Reservations")} //temporary function for view link
+            value="89,400" 
+            desc="21% more than last month" />
+
+
+            <StatGraph 
+            title="Upcoming Appointments" 
+            viewLink={() => console.log("View All Appointments")} //temporary function for view link
+            value="2,350" 
+            desc="5% more than last week" />
             
            
           </div>
 
           {/* You can add more dashboard sections/components here */}
+          
         </main>
+        
       </div>
-      <Footer /> 
+      
     </div>
 
     

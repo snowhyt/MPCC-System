@@ -81,13 +81,16 @@ const menuItems = rawMenuItems.map(item =>{
         <>
           <aside className="w-64 bg-white text-black flex flex-col shadow-lg"> {/* Removed h-screen, it will inherit height from parent flex container */}
       
-
+      {/* Menu Title */}
+      <div className="p-4 border-b border-gray-200">
+        <h2 className="text-lg font-semibold text-gray-700">Menu</h2>
+      </div>
       <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
         {menuItems.map((item) => (
           <div key={item.label}>
             {item.subItems ? (
               <div> {/* Grouping span and sub-items list */}
-                <span className="block p-2 text-lg font-bold text-gray-600 uppercase flex items-center"> {/* Adjusted text color, added flex items-center */}
+                <span className=" p-2 text-lg font-bold text-gray-600 uppercase flex items-center"> {/* Adjusted text color, added flex items-center */}
                   {item.icon && <img src={item.icon} alt={`${item.label} icon`} className="w-8 h-8 mr-3" />}
                   {item.label}
                 </span>
@@ -102,8 +105,8 @@ const menuItems = rawMenuItems.map(item =>{
             ) : (
               // Main menu item without sub-items (like Dashboard)
               // Added flex and items-center to align icon and text
-              <a href={item.link} className="block p-2 rounded-lg text-gray-700 hover:bg-company hover:text-white transition-colors flex items-center"> {/* Added text-gray-700 for consistency */}
-                {item.icon && <img src={item.icon} alt={`${item.label} icon`} className="w-5 h-5 mr-3" />}
+              <a href={item.link} className=" p-2 rounded-lg text-gray-700 hover:bg-company hover:text-white transition-colors flex items-center"> {/* Added text-gray-700 for consistency */}
+                {item.icon && <img src={item.icon} alt={`${item.label} icon`} className="w-8 h-8 mr-3" />}
                 {item.label}
               </a>
             )}
