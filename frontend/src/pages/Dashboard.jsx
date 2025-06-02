@@ -1,6 +1,8 @@
 import React from 'react';
 import NavbarDashboard from '../components/NavbarDashboard';
 import SideMenu from '../components/SideMenu';
+import List from '../components/List';
+
 import salesIconUrl from '/images/icons/sale-icon.png';
 import transactionIconUrl from '/images/icons/transac-icon.png';
 import customerIconUrl from '/images/icons/active-icon.png';
@@ -107,7 +109,8 @@ function Dashboard() {
           </div>
 
           {/* You can add more dashboard sections/components here */}
-          
+          <List />
+
         </main>
         
       </div>
