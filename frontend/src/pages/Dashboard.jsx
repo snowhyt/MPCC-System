@@ -58,6 +58,7 @@ function Dashboard() {
 </div>
       <div className="stat-value text-4xl font-bold text-gray-800">{value}</div>
       {desc && <div className="stat-desc text-xs text-company">{desc}</div>}
+      <List />
     </div>
   );
 
@@ -109,7 +110,7 @@ function Dashboard() {
           </div>
 
           {/* You can add more dashboard sections/components here */}
-          <List />
+        
 
         </main>
         
