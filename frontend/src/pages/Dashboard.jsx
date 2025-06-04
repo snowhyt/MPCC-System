@@ -1,7 +1,7 @@
 import React from 'react';
 import NavbarDashboard from '../components/NavbarDashboard';
 import SideMenu from '../components/SideMenu';
-import List from '../components/List';
+import ListReservationDash from '../components/ListReservationDash';
 
 import salesIconUrl from '/images/icons/sale-icon.png';
 import transactionIconUrl from '/images/icons/transac-icon.png';
@@ -50,15 +50,18 @@ function Dashboard() {
     return { desc: descValue, indicator: null, indicatorAlt: '' };
   };
 
-   const StatGraph = ({ title, value, viewLink, desc }) => (
-    <div className="stat bg-base-100 shadow-lg rounded-3xl p-4 h-100"> {/* Added padding and background for clarity */}
-     <div className='flex items-start justify-between px-2'>
+   const StatGraphCard = ({ title, viewLink}) => (
+    <div className="stat bg-blue-100 shadow-lg rounded-3xl p-4 h-100"> {/* Added padding and background for clarity */}
+     
+     <div><div className=' flex items-start justify-between px-2'>
       <div className="stat-title text-2xl font-bold text-gray-700">{title}</div>
       <button className="stat-view hover:text-company text-base font-normal text-gray-400 mt-1" onClick={viewLink}>View All</button>
-</div>
-      <div className="stat-value text-4xl font-bold text-gray-800">{value}</div>
-      {desc && <div className="stat-desc text-xs text-company">{desc}</div>}
-      <List />
+      
+      </div>
+      <div className='flex w-auto justify-center items-start mt-5'> <ListReservationDash /></div>
+      </div>
+      
+         
     </div>
   );
 
@@ -93,14 +96,14 @@ function Dashboard() {
           </div>
              {/* Container for multiple stats cards, using a responsive grid */}
            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            <StatGraph 
-            title="Customer Reservations" 
+            <StatGraphCard
+            title="On-going Activities" 
             viewLink={() => console.log("View All Reservations")} //temporary function for view link
             value="89,400" 
             desc="21% more than last month" />
 
 
-            <StatGraph 
+            <StatGraphCard 
             title="Upcoming Appointments" 
             viewLink={() => console.log("View All Appointments")} //temporary function for view link
             value="2,350" 
