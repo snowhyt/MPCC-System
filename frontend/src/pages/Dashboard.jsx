@@ -1,13 +1,14 @@
 import React from 'react';
 import NavbarDashboard from '../components/NavbarDashboard';
 import SideMenu from '../components/SideMenu';
-import ListReservationDash from '../components/ListReservationDash';
 
 import salesIconUrl from '/images/icons/sale-icon.png';
 import transactionIconUrl from '/images/icons/transac-icon.png';
 import customerIconUrl from '/images/icons/active-icon.png';
 import indicatorGreen from '/images/icons/indicator-green.png';
 import indicatorRed from '/images/icons/indicator-red.png';
+import ActiveAppointments from '../components/ActiveAppointments';
+import UpcomingAppointments from '../components/UpcomingAppointments';
 
 
 function Dashboard() {
@@ -50,7 +51,7 @@ function Dashboard() {
     return { desc: descValue, indicator: null, indicatorAlt: '' };
   };
 
-   const StatGraphCard = ({ title, viewLink}) => (
+   const StatGraphCard_1 = ({ title, viewLink}) => (
     <div className="stat bg-blue-100 shadow-lg rounded-3xl p-4 h-100"> {/* Added padding and background for clarity */}
      
      <div><div className=' flex items-start justify-between px-2'>
@@ -58,11 +59,28 @@ function Dashboard() {
       <button className="stat-view hover:text-company text-base font-normal text-gray-400 mt-1" onClick={viewLink}>View All</button>
       
       </div>
-      <div className='flex w-auto justify-center items-start mt-5'> <ListReservationDash /></div>
+      <div className='flex w-auto justify-center items-start mt-5'> <ActiveAppointments/></div>
       </div>
       
          
     </div>
+    
+  );
+
+  const StatGraphCard_2 = ({ title, viewLink}) => (
+    <div className="stat bg-amber-100 shadow-lg rounded-3xl p-4 h-100"> {/* Added padding and background for clarity */}
+     
+     <div><div className=' flex items-start justify-between px-2'>
+      <div className="stat-title text-2xl font-bold text-gray-700">{title}</div>
+      <button className="stat-view hover:text-company text-base font-normal text-gray-400 mt-1" onClick={viewLink}>View All</button>
+      
+      </div>
+      <div className='flex w-auto justify-center items-start mt-5'> <UpcomingAppointments/></div>
+      </div>
+      
+         
+    </div>
+    
   );
 
   return (
@@ -94,22 +112,25 @@ function Dashboard() {
               {...getStatCardData("30")} // Assuming "30" is a percentage for indicator logic
             />
           </div>
+
+
              {/* Container for multiple stats cards, using a responsive grid */}
            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            <StatGraphCard
+            <StatGraphCard_1
             title="On-going Activities" 
             viewLink={() => console.log("View All Reservations")} //temporary function for view link
             value="89,400" 
             desc="21% more than last month" />
 
-
-            <StatGraphCard 
+             <StatGraphCard_2
             title="Upcoming Appointments" 
-            viewLink={() => console.log("View All Appointments")} //temporary function for view link
-            value="2,350" 
-            desc="5% more than last week" />
+            viewLink={() => console.log("View All Reservations")} //temporary function for view link
+            value="89,400" 
+            desc="21% more than last month" />
+
+
             
-           
+            
           </div>
 
           {/* You can add more dashboard sections/components here */}
