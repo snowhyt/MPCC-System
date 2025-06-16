@@ -3,22 +3,24 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import { generateToken } from "../utils/utils.js";
 
+
 //SIGNUP
 export const signup = async(req,res,next) =>{
+    console.log("Signup request received");
     const {fname,lname,mname,sex,birthdate,email,password,role,position,profilePic,phone, address} = req.body;
 
     try {
         //check if all fields have data
-        if(!fname || !lname || !mname || !sex || !birthdate || !email || !password || !role || !position || !profilePic || !phone || !address)
+        if(!fname || !lname || !sex || !birthdate || !email || !password || !role || !position || !phone || !address)
             {
-               const error = new Error("All fields are required");
+            const error = new Error("All fields are required");
                 error.statusCode = 400;
                 return next(error);
             }
         
-        //accepts admin and employee only (accesibility)
+        //accepts admin and employee only (accessibility)
 
-        if (role !== 'admin' && role !== 'employee'){
+        if (role !== 'admin' && role !== 'staff'){
             return res.status(400).json({message: "Invalid role. Choose the right role"});    
         }
 
@@ -50,21 +52,25 @@ export const signup = async(req,res,next) =>{
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         
+        // https://avatar-placeholder.iran.liara.run/
 
+		const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${email}`;
+		const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${email}`;
         //for new employee
+
         const newEmployee = await Employee.create({
-          fname,
-          lname,
-          mname,
-          sex,
-          birthdate,
-          email: email.toLowerCase(),
-          password: hashedPassword,
-          role,
-          position, 
-          profilePic,
-          phone,
-          address
+            fname,
+            lname,
+            mname,
+            sex: sex.toLowerCase(),
+            birthdate,
+            email: email.toLowerCase(),
+            password: hashedPassword,
+            role,
+            position, 
+            phone,
+            address,
+            profilePic : sex.toLowerCase() === "male" ? boyProfilePic : girlProfilePic
         });
 
         //generate token
@@ -77,14 +83,19 @@ export const signup = async(req,res,next) =>{
         return res.status(201).json({
             message: "Employee created successfully",
             employee:{
+                emp_id: newEmployee.emp_id,
                 id: newEmployee.id,
                 fname: newEmployee.fname,
                 lname: newEmployee.lname,
+                mname: newEmployee.mname,
                 sex: newEmployee.sex,
                 birthdate: newEmployee.birthdate,
                 email: newEmployee.email,
                 role: newEmployee.role,
                 position: newEmployee.position,
+                profilePic: newEmployee.profilePic,
+                phone: newEmployee.phone,
+                address: newEmployee.address
             }
         })
 
@@ -134,6 +145,7 @@ export const login = async(req,res) =>{
         //send response
         res.status(200).json({
             message: "Login successful",
+            token: LoginEmployee.token,
             employee:{
                 id: LoginEmployee.id,
                 fname: LoginEmployee.fname,
@@ -144,9 +156,9 @@ export const login = async(req,res) =>{
                 email: LoginEmployee.email,
                 role: LoginEmployee.role,
                 position: LoginEmployee.position,
-                profilePic: LoginEmployee.profilePic,
                 phone: LoginEmployee.phone,
-                address: LoginEmployee.address
+                address: LoginEmployee.address,
+                profilePic: LoginEmployee.profilePic
             }
         })
         
@@ -167,6 +179,9 @@ export const logout = async(req,res) =>{
         res.status(200).json({message: "Logged out successfully"});
         
     } catch (error) {
-        console.log()
+        console.log(error);
+        res.status(500).json({message: "Internal server error (Logout)"});
+        
+    
     }
 }
