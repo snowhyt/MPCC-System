@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function Navbar() {
   return (
     <div className="flex justify-center w-full">
@@ -30,6 +31,7 @@ function Navbar() {
           </button>
         </div>
       </div>
+    
     </div>
   );
 }
