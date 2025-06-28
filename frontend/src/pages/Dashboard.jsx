@@ -10,6 +10,7 @@ import indicatorRed from '/images/icons/indicator-red.png';
 import ActiveAppointments from '../components/ActiveAppointments';
 import UpcomingAppointments from '../components/UpcomingAppointments';
 import ChemicalUsage from '../components/ChemicalUsage';
+import InventoryTracking from '../components/InventoryTracking';
 
 
 function Dashboard() {
@@ -53,12 +54,12 @@ function Dashboard() {
   };
 
 
-  const ActiveAppointmentCard = ({ title, viewLink }) => (
-    <div className="stat bg-blue-100 shadow-lg rounded-3xl p-4 h-100 flex flex-col"> {/* Added padding and background for clarity */}
+  const ActiveAppointmentCard = ({ viewLink }) => (
+    <div className="stat bg-white shadow-lg rounded-3xl p-4 h-100 flex flex-col"> {/* Added padding and background for clarity */}
 
 
       <div className=' flex items-start justify-between px-2'>
-        <div className="stat-title text-2xl font-bold text-gray-700 flex-grow">{title}</div>
+        <div className="stat-title text-2xl font-bold text-gray-700 flex-grow">Active Appointments</div>
         <button className="stat-view hover:text-company text-base font-normal text-gray-400 mt-1" onClick={viewLink}>View All</button>
 
       </div>
@@ -69,19 +70,19 @@ function Dashboard() {
 
   );
 
-  const UpcomingAppointmentCard = ({ title, viewLink }) => (
-    <div className="stat bg-amber-100 shadow-lg rounded-3xl p-4 h-100 flex flex-col"> {/* Added padding and background for clarity */}
+  const UpcomingAppointmentCard = ({ viewLink }) => (
+    <div className="stat bg-white shadow-lg rounded-3xl p-4 h-100 flex flex-col"> {/* Added padding and background for clarity */}
 
-      <div><div className=' flex items-start justify-between px-2'>
-        <div className="stat-title text-2xl font-bold text-gray-700">{title}</div>
+      <div className=' flex items-start justify-between px-2'>
+        <div className="stat-title text-2xl font-bold text-gray-700">Upcoming Appointments</div>
         <button className="stat-view hover:text-company text-base font-normal text-gray-400 mt-1" onClick={viewLink}>View All</button>
 
       </div>
-        <div className='flex w-auto justify-center items-start mt-5'> <UpcomingAppointments /></div>
-      </div>
-
-
+      <div className='flex w-auto justify-center items-start mt-5'> <UpcomingAppointments /></div>
     </div>
+
+
+
 
 
 
@@ -90,22 +91,28 @@ function Dashboard() {
   );
 
   //Chemical Usage Card
-  const ChemicalUsageCard = ({viewLink }) => (
-    <div className='stat bg-white shadow-lg rounded-t-3xl p-4 h-100 flex flex-col'>
+  const ChemicalUsageCard = ({ viewLink }) => (
+    <div className='stat bg-white shadow-lg rounded-3xl p-4 h-75  flex flex-col'>
       <div className='flex items-start justify-between px-2'>
         <div className='stat-title text-2xl font-bold text-gray-700'>Chemical Usage</div>
         <button className='stat-view hover:text-company text-base font-normal text-gray-400 mt-1' onClick={viewLink}>View All</button>
       </div>
-      <div className='flex w-auto justify-center items-start mt-5'><ChemicalUsage /></div>
+      <div className='flex w-auto justify-center items-start mt-5 flex-1'><ChemicalUsage /></div>
 
     </div>
   );
 
-  const ChemicalCard = ({ }) => (
 
-    <div className='stat bg-blue-500 shaqow-lg rounded-3xl p-4 h-100'>
+  const InventoryTrackingCard = ({ viewLink }) => (
+    <div className='stat bg-white shadow-lg rounded-3xl p-4 h-156 flex flex-col'>
+      <div className='flex items-start justify-between px-2'>
+        <div className='stat-title text-2xl font-bold text-gray-700'>Inventory Tracking</div>
+        <button className='stat-view hover:text-company text-base font-normal text-gray-400 mt-1' onClick={viewLink}>View All</button>
+      </div>
+      <div className='flex w-auto justify-center items-start mt-5'><InventoryTracking /></div>
 
     </div>
+
   );
 
   return (
@@ -117,7 +124,7 @@ function Dashboard() {
           <h1 className="text-3xl font-semibold text-company mb-8">Dashboard Overview</h1>
 
           {/* Container for multiple stats cards, using a responsive grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             <StatCard
               icon={salesIconUrl}
               title="Total Sales"
@@ -136,37 +143,54 @@ function Dashboard() {
               value="1,200"
               {...getStatCardData("30")} // Assuming "30" is a percentage for indicator logic
             />
+
+             <StatCard
+              icon={customerIconUrl}
+              title="Registered Employee"
+              value="7"
+              {...getStatCardData("30")} // Assuming "30" is a percentage for indicator logic
+            />
           </div>
 
 
           {/* Container for multiple stats cards, using a responsive grid */}
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
             <ActiveAppointmentCard
-              title="On-going Activities"
+
               viewLink={() => console.log("View All Reservations")} //temporary function for view link
             />
 
             <UpcomingAppointmentCard
-              title="Upcoming Appointments"
+
               viewLink={() => console.log("View All Reservations")} //temporary function for view link
             />
 
 
-          <ChemicalUsageCard/>
-
-
-
-          </div>
-          <div className='mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6'>
 
 
           </div>
-          {/* You can add more dashboard sections/components here */}
+
+          <div className="mt-6 flex gap-6">
+            <div className='w-[70%] flex flex-col gap-6'>
+              <ChemicalUsageCard
+                viewLink={() => console.log("View All Reservations")} //temporary function for view link
+              />
 
 
-          <div className=''>
 
+              <ChemicalUsageCard
+                viewLink={() => console.log("View All Reservations")} //temporary function for view link
+              />
+            </div>
+             
+
+            <div className='w-[30%]'>
+              <InventoryTrackingCard
+                viewLink={() => console.log("View All Reservations")} //temporary function for view link
+              />
+            </div>
           </div>
+
         </main>
 
       </div>
