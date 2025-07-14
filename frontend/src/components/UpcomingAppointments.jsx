@@ -5,10 +5,10 @@ import placeHolder from "../../public/images/icons/customer-icon.png"
 
 const UpcomingAppoinmentRecord = ({day, month, year, name, serviceType, bldgType, address, targetDate}) => (
 <div>
-     <button id="list-container" className="group w-full text-left py-2 px-3 hover:text-company">
+     <button id="list-container" className=" group w-full text-left py-2 px-3 hover:text-company">
                 <ul id="list-record" >
                     <li className="flex justify-start gap-2">
-                      <div>
+                      <div id="left">
                          <h1 className="font-bold text-4xl text-company ">{day}</h1>
                           
                             <div className="text-center font-bold">
@@ -23,6 +23,9 @@ const UpcomingAppoinmentRecord = ({day, month, year, name, serviceType, bldgType
                                 <p>Service Type: {serviceType}</p>
                                 <p>Building Type: {bldgType}</p>
                             </div>
+                        </div>
+                        <div className="flex-1 w-20">
+
                         </div>
                         <div id="right" className="ml-auto mt-1 text-xs flex flex-col justify-start items-end"> {/* Changed ml-6 to ml-auto */}
                             <div className="text-sm text-right">{address}</div> {/* Added text-right to align address text */}

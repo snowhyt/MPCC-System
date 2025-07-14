@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react';
 
 
 const InventoryTrackingRecord = ({ type, name, details }) => (
-  <div className="py-2 px-3 hover:text-company"> {/* Added some padding and hover effect for consistency with other cards */}
+  <button className="group w-full text-left py-2 px-3">
     <ul>
-      <li className='flex flex-col'> {/* Changed to flex-col for vertical stacking */}
-        <p className="text-sm text-gray-500">Type: {type}</p>
-        <h1 className="text-lg font-semibold">{name}</h1>
-        <p className="text-gray-700">{details}</p>
+      <li className='flex flex-row justify-between items-center gap-10 group-hover:text-company' >
+        <div className='ml-5'>
+          <p className="text-sm text-gray-500 group-hover:text-company">Type: {type}</p>
+          <h1 className="text-lg font-semibold">{name}</h1>
+        </div>
+        <div className='ml-10'>
+        <p className="text-gray-700 group-hover:text-company">{details}</p>
+
+        </div>
       </li>
     </ul>
-    </div>
+  </button>
 );
 
 // Placeholder for data fetching
@@ -18,7 +23,7 @@ const fetchInventoryItemsFromDB = async () => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve([
-        { id: 1, type: "Chemical", name: "Fipronil", details: "100ml bottles x 5" },
+        { id: 1, type: "Chemical", name: "Fipronil", details: "100mladsafafafafasf fskfkas 5" },
         { id: 2, type: "Equipment", name: "Sprayer X200", details: "2 units available" },
         { id: 3, type: "Chemical", name: "Cypermethrin", details: "500ml bottles x 10" },
         { id: 4, type: "Equipment", name: "Safety Goggles", details: "15 pairs in stock" },

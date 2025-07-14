@@ -7,7 +7,7 @@ import billingIcon from '/images/icons/billing-icon.png';
 import payrollIcon from '/images/icons/payroll-icon.png';
 import userIcon from '/images/icons/user-control-icon.png';
 
-
+import {Link} from 'react-router-dom';
 
 
 function SideMenu() {
@@ -96,9 +96,12 @@ const menuItems = rawMenuItems.map(item =>{
                 </span>
                 <div className="ml-4 space-y-1"> {/* Indent sub-items */}
                   {item.subItems.map(subItem => (
-                    <a key={subItem.label} href={subItem.link} className="block p-2 rounded-lg text-gray-700 hover:bg-company hover:text-white transition-colors text-sm ml-3"> {/* Added ml-3 for sub-item text alignment with icon */}
-                      {subItem.label}
-                    </a>
+                  
+                      <Link 
+                    key={subItem.label}
+                    to={subItem.link}
+                   className="block p-2 rounded-lg text-gray-700 hover:bg-company hover:text-white transition-colors text-sm ml-3"
+                    >{subItem.label}</Link>
                   ))}
                 </div>
               </div>

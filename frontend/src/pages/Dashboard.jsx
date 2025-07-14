@@ -5,16 +5,19 @@ import SideMenu from '../components/SideMenu';
 import salesIconUrl from '/images/icons/sale-icon.png';
 import transactionIconUrl from '/images/icons/transac-icon.png';
 import customerIconUrl from '/images/icons/active-icon.png';
+import registeredEmpIconUrl from '/images/icons/registered-emp-icon.png'
 import indicatorGreen from '/images/icons/indicator-green.png';
 import indicatorRed from '/images/icons/indicator-red.png';
 import ActiveAppointments from '../components/ActiveAppointments';
 import UpcomingAppointments from '../components/UpcomingAppointments';
 import ChemicalUsage from '../components/ChemicalUsage';
 import InventoryTracking from '../components/InventoryTracking';
-
+import OtherUtilities from '../components/OtherUtilities';
+import MenuLayout from '../layout/MenuLayout';
 
 function Dashboard() {
   // A simple component for individual stat cards
+
   const StatCard = ({ title, value, desc, icon, indicator, indicatorAlt }) => (
     <div className="stat-icon bg-base-100 shadow-lg rounded-3xl p-5"> {/* Added padding and background for clarity */}
       <img src={icon} alt={`${title} Icon`} className="w-13 h-13 mb-2" /> {/* Dynamic alt, using standard Tailwind w-16/h-16 */}
@@ -63,7 +66,7 @@ function Dashboard() {
         <button className="stat-view hover:text-company text-base font-normal text-gray-400 mt-1" onClick={viewLink}>View All</button>
 
       </div>
-      <div className='flex flex-col w-auto justify-center items-start mt-5 flex-1 overflow-y-auto'> <ActiveAppointments /></div>
+      <div className='flex w-auto justify-center items-center mt-5 flex-1 overflow-y-auto'> <ActiveAppointments /></div>
 
 
     </div>
@@ -78,7 +81,7 @@ function Dashboard() {
         <button className="stat-view hover:text-company text-base font-normal text-gray-400 mt-1" onClick={viewLink}>View All</button>
 
       </div>
-      <div className='flex w-auto justify-center items-start mt-5'> <UpcomingAppointments /></div>
+      <div className='flex w-auto justify-center items-center mt-5 flex-1 overflow-y-auto'> <UpcomingAppointments /></div>
     </div>
 
 
@@ -102,6 +105,21 @@ function Dashboard() {
     </div>
   );
 
+  //Other Utilities Card
+  const OtherUtilitiesCard = ({viewLink}) =>
+    (
+      <>
+      <div className='stat bg-white shadow-lg rounded-3xl p-4 h-75 flex flex-col'>
+        <div className='flex items-start justify-between px-2'>
+          <div className='stat-title text-2xl font-bold text-gray-700'>Other Utilities</div>
+          <button className='stat-view hover:text-company text-base font-normal text-gray-400 mt-1' onClick={viewLink}>View All</button>
+        </div>
+        <div className='flex w-auto justify-center items-start mt-5 flex-1'><OtherUtilities/></div>
+      </div>
+      
+      </>
+    )
+
 
   const InventoryTrackingCard = ({ viewLink }) => (
     <div className='stat bg-white shadow-lg rounded-3xl p-4 h-156 flex flex-col'>
@@ -116,6 +134,8 @@ function Dashboard() {
   );
 
   return (
+    <>
+     <MenuLayout>
     <div className="flex flex-col h-screen bg-defaultBG"> {/* Use flex-col for overall page structure */}
       <NavbarDashboard />
       <div className="flex flex-1 overflow-hidden"> {/* Flex container for SideMenu and main content */}
@@ -145,7 +165,7 @@ function Dashboard() {
             />
 
              <StatCard
-              icon={customerIconUrl}
+              icon={registeredEmpIconUrl}
               title="Registered Employee"
               value="7"
               {...getStatCardData("30")} // Assuming "30" is a percentage for indicator logic
@@ -178,7 +198,7 @@ function Dashboard() {
 
 
 
-              <ChemicalUsageCard
+              <OtherUtilitiesCard
                 viewLink={() => console.log("View All Reservations")} //temporary function for view link
               />
             </div>
@@ -196,7 +216,8 @@ function Dashboard() {
       </div>
 
     </div>
-
+   </MenuLayout>
+</>
 
   );
 }

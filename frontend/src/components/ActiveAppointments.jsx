@@ -21,7 +21,8 @@ const ActiveAppointmentsRecord = ({profilePic, initialDate, endDate, serviceType
           <p>Status: {status}</p>
         </div>
       </div>
-      <div id="right" className="ml-auto mr-6 text-xs flex flex-col justify-end items-end">
+      <div id="right" className="ml-auto mr-6 text-xs flex flex-col md:pl-12 justify-end items-end">
+        
         <p className="text-sm font-semibold text-slate-600 group-hover:text-company">{initialDate} - {endDate}</p>
       </div>
       </li>
